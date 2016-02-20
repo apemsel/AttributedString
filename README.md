@@ -5,7 +5,7 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
  * core text extraction
 
 ## Examples
-```
+```php
   use apemsel\AttributedString\AttributedString;
   
   // ...
