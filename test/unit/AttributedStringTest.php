@@ -38,6 +38,14 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(false, $as->is("bold", 7));
   }
   
+  public function testSetPatternAndIs() {
+    $as = new AttributedString("foo bar baz");
+    $as->setPattern("/b[a-z]{2,2}/", "bold"); // set bar and baz to bold
+    $this->assertEquals(true, $as->is("bold", 5));
+    $this->assertEquals(false, $as->is("bold", 3));
+    $this->assertEquals(false, $as->is("bold", 7));
+  }
+  
   public function testAttributesAt() {
     $as = new AttributedString("foo bar baz");
     $as->setLength(4, 3, "bold");
