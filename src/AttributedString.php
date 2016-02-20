@@ -51,11 +51,20 @@ class AttributedString
       list($from, $to) = array($to, $from);
     }
     
+    // Create attribute if it does not exist
     if (!$this->hasAttribute($attribute)) {
       $this->createAttribute($attribute);
     }
 
     // Set attribute state for given range
-    $this->attributes[$attribute] = array_replace($this->attributs[$attribute], array_fill($from, $to-$from+1, $state));
+    $this->attributes[$attribute] = array_replace($this->attributes[$attribute], array_fill($from, $to-$from+1, $state));
+  }
+  
+  public function setLength($from, $length, $attribute, $state = true) {
+    return $this->setRange($from, $from+$length-1, $attribute, $state);
+  }
+  
+  public function is($attribute, $at) {
+    return (isset($this->attributes[$attribute][$at]) and $this->attributes[$attribute][$at]);
   }
 }
