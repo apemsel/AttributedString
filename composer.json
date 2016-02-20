@@ -1,13 +1,22 @@
 {
-  "config": {
-    "vendor-dir": "vendor",
-    "platform": {
-      "php": "5.4.45"
+  "name": "apemsel/attributed-string",
+  "description": "A simple attributed string class for PHP",
+  "keywords": ["string", "attribute", "attributed"],
+  "homepage": "http://github.com/apemsel/AttributedString",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Adrian Pemsel",
+      "email": "apemsel@gmail.com",
+      "homepage": "http://adrianpemsel.de",
+      "role": "Developer"
     }
+  ],
+  "config": {
+    "vendor-dir": "vendor"
   },
-  "name": "apemsel/AttributedString",
   "require": {
-    "php": ">=5.4.45"
+    "php": ">=5.4"
   },
   "require-dev": {
     "phpunit/phpunit": "4.8.*"

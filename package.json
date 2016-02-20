@@ -1,7 +1,6 @@
 {
-  "name": "AttributedString",
+  "name": "apemsel/attributed-string",
   "version": "dev-0.0.1",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "http://github.com/apemsel/AttributedString"
