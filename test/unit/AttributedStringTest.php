@@ -68,6 +68,12 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(false, $as->is("underlined", 7));
     $this->assertEquals(false, $as->is("underlined", 12));
     
+    $as = new AttributedString("foo BaR baz bar");
+    $as->setSubstring("BAR", "bold", true, false); // case independet
+    $this->assertEquals(true, $as->is("bold", 5));
+    $this->assertEquals(false, $as->is("bold", 3));
+    $this->assertEquals(false, $as->is("bold", 7));
+    $this->assertEquals(true, $as->is("bold", 12));
     
   }
   
