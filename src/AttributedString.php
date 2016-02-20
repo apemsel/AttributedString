@@ -100,45 +100,49 @@ class AttributedString implements \Countable
     for ($i = 0; $i < strlen($this->string); ) {
       $char++;
       $byte = $this->string[$i];
-      $base2 = str_pad(base_convert((string) ord($byte), 10, 2), 8, "0", STR_PAD_LEFT);
-      $p = strpos($base2, "0");
-      if ($p == 0) $i++;
-      elseif ($p <= 4) $i += $p;
-      else return false;
+      $cl = self::utf8CharLen($byte);
+      $i += $cl;
       
       $this->byte2Char[$i] = $char;
     }
   }
   
-  protected function byte2charOffset($boff)
-  {
+  protected function byte2charOffset($boff) {
     if (isset($this->byte2Char[$boff])) return $this->byte2Char[$boff];
     return $this->byte2Char[$boff] = self::byte2charOffsetString($this->string, $boff);
   }
 
-  protected function char2ByteOffset($char)
-  {
+  protected function char2ByteOffset($char) {
     $byte = strlen(mb_substr($this->string, 0, $char, 'utf-8'));
     if (!isset($this->byte2Char[$byte])) $this->byte2Char[$byte] = $char;
     
     return $byte;
   }
   
-  protected static function byte2charOffsetString($string, $boff)
-  {
+  protected static function byte2charOffsetString($string, $boff) {
     $result = 0;
     
     for ($i = 0; $i < $boff; ) {
       $result++;
       $byte = $string[$i];
-      $base2 = str_pad(base_convert((string) ord($byte), 10, 2), 8, "0", STR_PAD_LEFT);
-      $p = strpos($base2, "0");
-      if ($p == 0) $i++;
-      elseif ($p <= 4) $i += $p;
-      else return false;
+      $cl = self::utf8CharLen($byte);
+      $i += $cl;
     }
     
     return $result;
+  }
+  
+  protected static function utf8CharLen($byte) {
+    $base2 = str_pad(base_convert((string) ord($byte), 10, 2), 8, "0", STR_PAD_LEFT);
+    $p = strpos($base2, "0");
+    
+    if ($p == 0) {
+      return 1;
+    } elseif ($p <= 4) {
+      return $p;
+    } else {
+      throw new \InvalidArgumentException();
+    }
   }
   
   // For Countable interface
