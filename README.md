@@ -19,7 +19,3 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   $as->getAttributes(12) // char at offset 12 has attributes ["color", "vowel"]
   
 ```
- 
-## Versions
-### dev-0.0.1
-* very basic implementation
