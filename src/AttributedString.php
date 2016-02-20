@@ -91,6 +91,20 @@ class AttributedString implements \Countable
     }
   }
   
+  public function searchAttribute($attribute, $offset = 0) {
+    if (!$this->hasAttribute($attribute)) {
+      return false;
+    }
+    
+    $a = $this->attributes[$attribute];
+
+    if ($offset) {
+      $a = array_slice($a, $offset, $this->length, true);
+    }
+    
+    return array_search(true, $a, true);
+  }
+  
   public function is($attribute, $pos) {
     return (isset($this->attributes[$attribute][$pos]) and $this->attributes[$attribute][$pos]);
   }
