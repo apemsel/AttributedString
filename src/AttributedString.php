@@ -71,10 +71,8 @@ class AttributedString
   public function attributesAt($pos) {
     $attributes = [];
 
-    foreach ($this->attributes as $attribute => &$map)
-    {
-      if ($map[$pos])
-      {
+    foreach ($this->attributes as $attribute => &$map) {
+      if ($map[$pos]) {
         $attributes[] = $attribute;
       }
     }
