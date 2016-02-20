@@ -77,11 +77,12 @@ class AttributedString implements \Countable
     }
   }
   
-  public function setSubstring($substring, $attribute, $all = true) {
+  public function setSubstring($substring, $attribute, $all = true, $matchCase = true) {
     $offset = 0;
     $length = mb_strlen($substring, "utf-8");
-
-    while (false !== $pos = mb_strpos($this->string, $substring, $offset, "utf-8")) {
+    $func = $matchCase ? "mb_strpos" : "mb_stripos";
+    
+    while (false !== $pos = $func($this->string, $substring, $offset, "utf-8")) {
       $this->setRange($pos, $pos + $length - 1, $attribute);
       if (!$all) {
         return;
