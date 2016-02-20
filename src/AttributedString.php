@@ -49,7 +49,7 @@ class AttributedString implements \Countable
     
     // Be kind and swap from and to if mixed up
     if ($from>$to) {
-      list($from, $to) = array($to, $from);
+      list($from, $to) = [$to, $from];
     }
     
     // Create attribute if it does not exist
@@ -92,6 +92,22 @@ class AttributedString implements \Countable
     }
 
     return $attributes;
+  }
+  
+  public function enableByte2CharCache() {
+    $this->byte2Char = [];
+    $char = 0;
+    for ($i = 0; $i < strlen($this->string); ) {
+      $char++;
+      $byte = $this->string[$i];
+      $base2 = str_pad(base_convert((string) ord($byte), 10, 2), 8, "0", STR_PAD_LEFT);
+      $p = strpos($base2, "0");
+      if ($p == 0) $i++;
+      elseif ($p <= 4) $i += $p;
+      else return false;
+      
+      $this->byte2Char[$i] = $char;
+    }
   }
   
   protected function byte2charOffset($boff)
