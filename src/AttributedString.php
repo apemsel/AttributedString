@@ -64,7 +64,21 @@ class AttributedString
     return $this->setRange($from, $from+$length-1, $attribute, $state);
   }
   
-  public function is($attribute, $at) {
-    return (isset($this->attributes[$attribute][$at]) and $this->attributes[$attribute][$at]);
+  public function is($attribute, $pos) {
+    return (isset($this->attributes[$attribute][$pos]) and $this->attributes[$attribute][$pos]);
+  }
+  
+  public function attributesAt($pos) {
+    $attributes = [];
+
+    foreach ($this->attributes as $attribute => &$map)
+    {
+      if ($map[$pos])
+      {
+        $attributes[] = $attribute;
+      }
+    }
+
+    return $attributes;
   }
 }
