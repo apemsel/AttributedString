@@ -1,5 +1,5 @@
 <?php
-use AttributedString\AttributedString;
+use apemsel\AttributedString\AttributedString;
 
 class AttributedStringTest extends PHPUnit_Framework_TestCase
 {
