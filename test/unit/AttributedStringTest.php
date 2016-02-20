@@ -55,11 +55,20 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testSetSubstring() {
-    $as = new AttributedString("foo bar baz");
-    $as->setSubstring("bar", "bold");
+    $as = new AttributedString("foo bar baz bar");
+    $as->setSubstring("bar", "bold"); // all instances of bar
     $this->assertEquals(true, $as->is("bold", 5));
     $this->assertEquals(false, $as->is("bold", 3));
     $this->assertEquals(false, $as->is("bold", 7));
+    $this->assertEquals(true, $as->is("bold", 12));
+    
+    $as->setSubstring("bar", "underlined", false); // first instance of bar only
+    $this->assertEquals(true, $as->is("underlined", 5));
+    $this->assertEquals(false, $as->is("underlined", 3));
+    $this->assertEquals(false, $as->is("underlined", 7));
+    $this->assertEquals(false, $as->is("underlined", 12));
+    
+    
   }
   
   public function testAttributesAt() {
