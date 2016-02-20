@@ -91,7 +91,7 @@ class AttributedString implements \Countable
     }
   }
   
-  public function searchAttribute($attribute, $offset = 0) {
+  public function searchAttribute($attribute, $offset = 0, $returnLength = false) {
     if (!$this->hasAttribute($attribute)) {
       return false;
     }
@@ -102,7 +102,21 @@ class AttributedString implements \Countable
       $a = array_slice($a, $offset, $this->length, true);
     }
     
-    return array_search(true, $a, true);
+    $pos = array_search(true, $a, true);
+    
+    if ($returnLength) {
+      if (false === $pos) {
+        return false;
+      }
+      
+      $a = array_slice($a, $pos);
+      $length = array_search(false, $a, true);
+      $length = $length ? $length : $this->length - $pos;
+
+      return [$pos, $length];
+    } else {
+      return $pos;
+    }
   }
   
   public function is($attribute, $pos) {
