@@ -87,6 +87,16 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals([], $as->attributesAt(3));
   }
   
+  public function testSearchAtttribute() {
+    $as = new AttributedString("foo bar baz");
+    $as->setLength(4, 3, "bold");
+
+    $this->assertEquals(4, $as->searchAttribute("bold"));
+    $this->assertEquals(false, $as->searchAttribute("underlined"));
+    $this->assertEquals(false, $as->searchAttribute("bold", 7));
+  }
+  
+  
   public function testCount() {
     $as = new AttributedString("foo bar baz");
     
