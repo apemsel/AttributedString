@@ -1,7 +1,7 @@
 <?php
 namespace apemsel\AttributedString;
 
-class AttributedString
+class AttributedString implements \Countable
 {
   protected $string;
   protected $attributes;
@@ -78,5 +78,10 @@ class AttributedString
     }
 
     return $attributes;
+  }
+  
+  // For Countable interface
+  public function count() {
+    return $this->length;
   }
 }
