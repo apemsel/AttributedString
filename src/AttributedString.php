@@ -62,11 +62,10 @@ class AttributedString implements \Countable
   }
   
   public function setLength($from, $length, $attribute, $state = true) {
-    return $this->setRange($from, $from+$length-1, $attribute, $state);
+    return $this->setRange($from, $from + $length - 1, $attribute, $state);
   }
   
-  public function setPattern($pattern, $attribute, $state = true)
-  {
+  public function setPattern($pattern, $attribute, $state = true) {
     if ($ret = preg_match_all($pattern, $this->string, $matches, PREG_OFFSET_CAPTURE)) {
       foreach($matches[0] as $match)
       {
@@ -75,6 +74,19 @@ class AttributedString implements \Countable
       }
 
       return $ret;
+    }
+  }
+  
+  public function setSubstring($substring, $attribute, $all = true) {
+    $offset = 0;
+    $length = mb_strlen($substring, "utf-8");
+
+    while (false !== $pos = mb_strpos($this->string, $substring, $offset, "utf-8")) {
+      $this->setRange($pos, $pos + $length - 1, $attribute);
+      if (!$all) {
+        return;
+      }
+      $offset = $pos + $length;
     }
   }
   
@@ -113,7 +125,7 @@ class AttributedString implements \Countable
   }
 
   protected function char2ByteOffset($char) {
-    $byte = strlen(mb_substr($this->string, 0, $char, 'utf-8'));
+    $byte = strlen(mb_substr($this->string, 0, $char, "utf-8"));
     if (!isset($this->byte2Char[$byte])) $this->byte2Char[$byte] = $char;
     
     return $byte;
