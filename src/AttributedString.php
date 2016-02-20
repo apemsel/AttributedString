@@ -3,13 +3,59 @@ namespace apemsel\AttributedString;
 
 class AttributedString
 {
-  protected $s;
+  protected $string;
+  protected $attributes;
+  protected $length;
   
   public function __construct($string) {
-    $this->s = $string;
+    if (is_string($string)) {
+      $this->string = $string;
+      $this->length = mb_strlen($string, "utf-8");
+    }
+    else {
+      throw new \InvalidArgumentException();
+    }
   }
   
   public function __toString() {
-    return $this->s;
+    return $this->string;
+  }
+    
+  public function createAttribute($attribute) {
+    if ($this->hasAttribute($attribute)) {
+      throw new \InvalidArgumentException();
+    }
+    
+    $this->attributes[$attribute] = array_fill(0, $this->length, false);
+  }
+  
+  public function hasAttribute($attribute) {
+    return isset($this->attributes[$attribute]);
+  }
+  
+  public function deleteAttribute($attribute) {
+    if (isset($this->attributes[$attribute])) {
+      unset($this->attributes[$attribute]);
+    }
+  }
+  
+  public function setRange($from, $to, $attribute, $state = true) {
+    // Ensure correct range
+    $from = min($from, $this->length);
+    $from = max($from, 0);
+    $to = min($to, $this->length);
+    $to = max($to, 0);
+    
+    // Be kind and swap from and to if mixed up
+    if ($from>$to) {
+      list($from, $to) = array($to, $from);
+    }
+    
+    if (!$this->hasAttribute($attribute)) {
+      $this->createAttribute($attribute);
+    }
+
+    // Set attribute state for given range
+    $this->attributes[$attribute] = array_replace($this->attributs[$attribute], array_fill($from, $to-$from+1, $state));
   }
 }
