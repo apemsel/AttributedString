@@ -39,19 +39,19 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testSetPatternAndIs() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("äöü foo bar baz");
     $as->setPattern("/b[a-z]{2,2}/", "bold"); // set bar and baz to bold
-    $this->assertEquals(true, $as->is("bold", 5));
-    $this->assertEquals(false, $as->is("bold", 3));
+    $this->assertEquals(true, $as->is("bold", 9));
     $this->assertEquals(false, $as->is("bold", 7));
+    $this->assertEquals(false, $as->is("bold", 11));
 
     // try again with byte2Char cache
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("äöü foo bar baz");
     $as->enableByte2CharCache();
     $as->setPattern("/b[a-z]{2,2}/", "bold"); // set bar and baz to bold
-    $this->assertEquals(true, $as->is("bold", 5));
-    $this->assertEquals(false, $as->is("bold", 3));
+    $this->assertEquals(true, $as->is("bold", 9));
     $this->assertEquals(false, $as->is("bold", 7));
+    $this->assertEquals(false, $as->is("bold", 11));
   }
   
   public function testAttributesAt() {
