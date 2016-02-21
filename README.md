@@ -14,6 +14,7 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   
   $as->setLength(10, 5, "color"); // "brown" has attribute "color"
   $as->is("color", 12); // == true
+  $as->toHtml(); // "The quick <span class=\"color\">brown</span> fox"
   
   $as->setPattern("/[aeiou]/", "vowel"); // vowels have attribute "vowel"
   $as->getAttributes(12); // char at offset 12 has attributes ["color", "vowel"]
@@ -22,4 +23,5 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   $as->is("noun", 16); // true, char at offset 16 is part of a noun
   
   $as->searchAttribute("vowel"); // 2, first vowel starts at offset 2
+  $as->searchAttribute("vowel", 0, true); // [2, 1], first vowel starting at offset 0 is at offset 2 with length 1
 ```
