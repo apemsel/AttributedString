@@ -135,6 +135,49 @@ class AttributedString implements \Countable
     return $attributes;
   }
   
+  public function toHtml($tag = "span", $classPrefix = "") {
+    foreach($this->attributes as $attribute => $map) $state[$attribute] = false;
+
+    $html = "";
+    $stack = [];
+    $lastPos = 0;
+
+    for ($i=0; $i<$this->length; $i++)
+    {
+      foreach($this->attributes as $attribute => &$map)
+      {
+        if ($this->attributes[$attribute][$i] != $state[$attribute])
+        {
+          $state[$attribute] = $this->attributes[$attribute][$i];
+
+          $html .= mb_substr($this->string, $lastPos, $i-$lastPos, "utf-8");
+          $lastPos = $i;
+
+          if ($state[$attribute])
+          {
+            $html .= "<$tag class=\"$classPrefix$attribute\">";
+            $stack[] = $attribute;
+          }
+          else
+          {
+            if ($attribute != array_pop($stack))
+            {
+              throw new Exception("Attributes are not properly nested for HTML conversion");
+            }
+            $html .= "</$tag>";
+          }
+        }
+      }
+    }
+
+    $html .= mb_substr($this->string, $lastPos, $this->length-$lastPos, 'utf-8');
+
+    // Close all spans that remained open
+    $html .= str_repeat("</$tag>", count($stack));
+
+    return $html;
+  }
+  
   public function enableByte2CharCache() {
     $this->byte2Char = [];
     $char = 0;
