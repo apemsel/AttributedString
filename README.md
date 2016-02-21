@@ -18,6 +18,9 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   
   $as->setPattern("/[aeiou]/", "vowel"); // vowels have attribute "vowel"
   $as->getAttributes(12); // char at offset 12 has attributes ["color", "vowel"]
+  
+  $as->combineAttributes("and", "color", "vowel", "colored-vowel"); // also use "or", "not", "xor" to combine attributes
+  $as->is("colored-vowel", 12); // "o" of "brown" is a color vowel ;-)
 
   $as->setSubstring("fox", "noun"); // all instances of "fox" have attribute "noun"
   $as->is("noun", 16); // true, char at offset 16 is part of a noun
