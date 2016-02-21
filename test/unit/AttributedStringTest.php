@@ -98,13 +98,29 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(false, $as->searchAttribute("underlined", 0, true));
   }
 
-  public function testToHtml() {
+  public function testCombineAttributes() {
     $as = new AttributedString("foo bar baz");
     $as->setLength(4, 3, "bold");
     
     $this->assertEquals("foo <span class=\"bold\">bar</span> baz", $as->toHtml());
     $this->assertEquals("foo <div class=\"bold\">bar</div> baz", $as->toHtml("div"));
     $this->assertEquals("foo <span class=\"prefix-bold\">bar</span> baz", $as->toHtml("span", "prefix-"));
+  }
+  
+  public function testToHtml() {
+    $as = new AttributedString("foo bar baz");
+    $as->setLength(4, 3, "bold");
+    $as->setLength(0, 5, "underlined");
+    $as->combineAttributes("or", "bold", "underlined", "either");
+    $this->assertEquals([0, 7], $as->searchAttribute("either", 0, true));
+    $as->combineAttributes("xor", "bold", "underlined", "eithernotboth");
+    $this->assertEquals([0, 4], $as->searchAttribute("eithernotboth", 0, true));
+    $as->combineAttributes("and", "bold", "underlined", "both");
+    $this->assertEquals([4, 1], $as->searchAttribute("both", 0, true));
+    $as->combineAttributes("not", "underlined", false, "notunderlined");
+    $this->assertEquals([5, 6], $as->searchAttribute("notunderlined", 0, true));
+    $this->setExpectedException('InvalidArgumentException');
+    $as->combineAttributes("non-op", "underlined", "bold", "non-op");
   }
   
   public function testCount() {
