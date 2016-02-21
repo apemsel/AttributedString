@@ -87,7 +87,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals([], $as->attributesAt(3));
   }
   
-  public function testSearchAtttribute() {
+  public function testSearchAttribute() {
     $as = new AttributedString("foo bar baz");
     $as->setLength(4, 3, "bold");
 
@@ -96,9 +96,16 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(false, $as->searchAttribute("underlined"));
     $this->assertEquals(false, $as->searchAttribute("bold", 7));
     $this->assertEquals(false, $as->searchAttribute("underlined", 0, true));
-
   }
-  
+
+  public function testToHtml() {
+    $as = new AttributedString("foo bar baz");
+    $as->setLength(4, 3, "bold");
+    
+    $this->assertEquals("foo <span class=\"bold\">bar</span> baz", $as->toHtml());
+    $this->assertEquals("foo <div class=\"bold\">bar</div> baz", $as->toHtml("div"));
+    $this->assertEquals("foo <span class=\"prefix-bold\">bar</span> baz", $as->toHtml("span", "prefix-"));
+  }
   
   public function testCount() {
     $as = new AttributedString("foo bar baz");
