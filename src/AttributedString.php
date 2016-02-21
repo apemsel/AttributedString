@@ -178,6 +178,54 @@ class AttributedString implements \Countable
     return $html;
   }
   
+  public function combineAttributes($op, $attribute1, $attribute2 = false, $to = false)
+  {
+    $to = isset($to) ? $to : $attribute1;
+    $op = strtolower($op);
+    
+    if ($op == "not") {
+      $attribute2 = $attribute1;
+    }
+
+    if (!$this->hasAttribute($attribute1) or !$this->hasAttribute($attribute2)) {
+      throw new \InvalidArgumentException("Attribute does not exist");
+    }
+    
+    if (!isset($this->attributes[$to])) {
+      $this->attributes[$to] = []; // No need to init because array is created below
+    }
+    
+    // Switch outside the loops for speed
+    switch ($op) {
+      case 'or':
+        for($i = 0; $i < $this->length; $i++) {
+          $this->attributes[$to][$i] = $this->attributes[$attribute1][$i] || $this->attributes[$attribute2][$i];
+        }
+      break;
+      
+      case 'xor':
+        for($i = 0; $i < $this->length; $i++) {
+          $this->attributes[$to][$i] = ($this->attributes[$attribute1][$i] xor $this->attributes[$attribute2][$i]);
+        }
+      break;
+
+      case 'and':
+        for($i = 0; $i < $this->length; $i++) {
+          $this->attributes[$to][$i] = $this->attributes[$attribute1][$i] && $this->attributes[$attribute2][$i];
+        }
+      break;
+
+      case 'not':
+        for($i = 0; $i < $this->length; $i++) {
+          $this->attributes[$to][$i] = !$this->attributes[$attribute1][$i];
+        }
+      break;
+      
+      default:
+        throw new \InvalidArgumentException("Unknown operation");
+    }
+  }
+  
   public function enableByte2CharCache() {
     $this->byte2Char = [];
     $char = 0;
@@ -193,6 +241,7 @@ class AttributedString implements \Countable
   
   protected function byte2charOffset($boff) {
     if (isset($this->byte2Char[$boff])) return $this->byte2Char[$boff];
+    
     return $this->byte2Char[$boff] = self::byte2charOffsetString($this->string, $boff);
   }
 
