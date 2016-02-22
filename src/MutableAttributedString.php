@@ -32,10 +32,21 @@ class MutableAttributedString extends AttributedString
   }
   
   public function delete($pos, $length) {
+    $leftPart = "";
+    if ($pos > 0) {
+      $leftPart = substr($this->string, 0, $pos - 1);
+    }
     
-  }
-  
-  public function replace($pos, $length, $string) {
+    $rightPart = "";
+    if ($pos + $length < $this->length) {
+      $rightPart = substr($this->string, $pos + $length);
+    }
     
+    $this->string = $leftPart.$rightPart;
+    $this->length -= $length;
+    
+    foreach ($this->attributes as $attribute => &$map) {
+      array_splice($map, $pos, $length);
+    }
   }
 }
