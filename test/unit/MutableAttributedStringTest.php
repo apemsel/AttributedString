@@ -24,4 +24,33 @@ class MutableAttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(true, $as->is("bold", 0), "start should still be underlined");
     $this->assertEquals(false, $as->is("bold", 10), "end should not be underlined");
   }
+  
+  public function testDelete() {
+    // delete in the middle
+    $as = new MutableAttributedString("foo bar baz");
+
+    $as->setLength(0, 11, "bold");
+    $as->delete(4, 3);
+    $this->assertEquals("foo baz", $as);
+    $this->assertEquals(true, $as->is("bold", 0), "start should still be bold");
+    $this->assertEquals(true, $as->is("bold", 6), "end should still be bold");
+
+    // delete from the start
+    $as = new MutableAttributedString("foo bar baz");
+
+    $as->setLength(0, 11, "bold");
+    $as->delete(0, 4);
+    $this->assertEquals("bar baz", $as);
+    $this->assertEquals(true, $as->is("bold", 0), "start should still be bold");
+    $this->assertEquals(true, $as->is("bold", 6), "end should still be bold");
+    
+    // delete at the end
+    $as = new MutableAttributedString("foo bar baz");
+
+    $as->setLength(0, 11, "bold");
+    $as->delete(8, 4);
+    $this->assertEquals("foo bar", $as);
+    $this->assertEquals(true, $as->is("bold", 0), "start should still be bold");
+    $this->assertEquals(true, $as->is("bold", 6), "end should still be bold");
+  }
 }
