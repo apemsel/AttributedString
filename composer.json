@@ -1,7 +1,7 @@
 {
   "name": "apemsel/attributed-string",
   "description": "A simple attributed string class for PHP",
-  "keywords": ["string", "attribute", "attributed"],
+  "keywords": ["string", "attribute", "attributed", "mutable", "span"],
   "homepage": "http://github.com/apemsel/AttributedString",
   "license": "MIT",
   "authors": [
