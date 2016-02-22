@@ -32,6 +32,6 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   $mas = new MutableAttributedString("The brown fox");
   $mas->setLength(0, 13, "bold");
   $mas->insert(4, "quick "); // "The quick brown fox";
-  $mas->is("underlined", 6) // true, "quick" is now also bold since the inserted text was inside the "bold" attribute
+  $mas->is("bold", 6) // true, "quick" is now also bold since the inserted text was inside the "bold" attribute
   $mas->delete(10, 6) // "The quick fox"
 ```
