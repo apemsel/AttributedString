@@ -27,4 +27,11 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   
   $as->searchAttribute("vowel"); // 2, first vowel starts at offset 2
   $as->searchAttribute("vowel", 0, true); // [2, 1], first vowel starting at offset 0 is at offset 2 with length 1
+  
+  // MutableAttributedString can be modified after creation and tries to be smart about the attributes
+  $mas = new MutableAttributedString("The brown fox");
+  $mas->setLength(0, 13, "bold");
+  $mas->insert(4, "quick "); // "The quick brown fox";
+  $mas->is("underlined", 6) // true, "quick" is now also bold since the inserted text was inside the "bold" attribute
+  $mas->delete(10, 6) // "The quick fox"
 ```
