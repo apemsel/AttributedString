@@ -93,7 +93,9 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
 
     $this->assertEquals(4, $as->searchAttribute("bold"));
     $this->assertEquals([4, 3], $as->searchAttribute("bold", 0, true));
-    $this->assertEquals([0, 4], $as->searchAttribute("bold", 0, true, false, "search for false state of attribute"));
+    $this->assertEquals([0, 4], $as->searchAttribute("bold", 0, true, false), "search for false state of attribute");
+    $this->assertEquals([0, 4], $as->searchAttribute("bold", 0, true, 0, false), "search for 0 state of attribute, non-strict");
+    $this->assertEquals(false, $as->searchAttribute("bold", 0, true, 0, true), "search for 0 state of attribute, strict");
     $this->assertEquals(false, $as->searchAttribute("underlined"));
     $this->assertEquals(false, $as->searchAttribute("bold", 7));
     $this->assertEquals(false, $as->searchAttribute("underlined", 0, true));
