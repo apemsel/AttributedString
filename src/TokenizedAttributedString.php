@@ -42,6 +42,10 @@ class TokenizedAttributedString extends AttributedString
     $this->setLength($offset, $length, $attribute, $state);
   }
   
+  public function attributesAtToken($i) {
+    return $this->attributesAt($this->tokenOffsets[$i]);
+  }
+  
   protected static function tokenizeOnWhitespace($string)
   {
     // Fastest way to get both tokens and their offsets, but not easy to understand.
