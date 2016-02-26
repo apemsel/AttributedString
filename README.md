@@ -34,4 +34,12 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   $mas->insert(4, "quick "); // "The quick brown fox";
   $mas->is("bold", 6) // true, "quick" is now also bold since the inserted text was inside the "bold" attribute
   $mas->delete(10, 6) // "The quick fox"
+  
+  // TokenizedAttributedString tokenizes the given string, can set attributes by token
+  // and maintains the tokens' offsets in the original string.
+  $tas = new TokenizedAttributedString("The quick brown fox"); // tokenize using the default whitespace tokenizer
+  $tas->getToken(2); // "brown"
+  $tas->setTokenAttribute(2, "bold"); // "brown" is "bold"
+  $tas->getTokenOffset(2); // 10, "brown" starts at offset 10
+  $tas->getTokenOffsets(); // [0, 4, 10, 16], start offsets of the tokens in the string
 ```
