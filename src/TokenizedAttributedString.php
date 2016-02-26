@@ -25,8 +25,16 @@ class TokenizedAttributedString extends AttributedString
   public function getTokenOffsets() {
     return $this->tokenOffsets;
   }
+
+  public function getToken($i) {
+    return $this->tokens[$i];
+  }
   
-  public function setToken($i, $attribute, $state = true) {
+  public function getTokenOffset($i) {
+    return $this->tokenOffsets[$i];
+  }
+    
+  public function setTokenAttribute($i, $attribute, $state = true) {
     $token = $this->tokens[$i];
     $offset = $this->tokenOffsets[$i];
     $length = strlen($token);
