@@ -5,9 +5,16 @@ namespace apemsel\AttributedString;
 class TokenizedAttributedString extends AttributedString
 {
   protected $tokens;
+  protected $tokenOffsets;
   
   public function __construct($string, $tokenizer = "whitespace") {
-    $this->tokens = self::tokenize($string, $tokenizer);
+    $tokenizerFunction = "tokenizeOn".ucfirst($tokenizer);
+    if (!method_exists("apemsel\AttributedString\TokenizedAttributedString", $tokenizerFunction)) {
+      throw new \InvalidArgumentException("Unknown tokenizer $tokenizer");
+    }
+
+    list($this->tokens, $this->tokenOffsets) = self::$tokenizerFunction($string);
+    
     parent::__construct($string);
   }
   
@@ -15,14 +22,22 @@ class TokenizedAttributedString extends AttributedString
     return $this->tokens;
   }
   
-  protected static function tokenize($string, $tokenizer)
+  public function getTokenOffsets() {
+    return $this->tokenOffsets;
+  }
+  
+  protected static function tokenizeOnWhitespace($string)
   {
-    if ($tokenizer == "whitespace")
-    {
-      // Remove excessive whitespace and convert to single space
-      $string = trim(preg_replace('/[\s\n\r]+/u', ' ', $string));
+    // Fastest way to get both tokens and their offsets, but not easy to understand.
+    // Matches pontential whitespace in front of the token and the token itself.
+    // Matching the whitespace could be omitted, but that results in slower execution ;-)
+    preg_match_all('/[\s\n\r]*([^\s\n\r]+)/u', $string, $matches, PREG_OFFSET_CAPTURE);
 
-      return explode(" ", $string);
-    }
+    // $matches[1] contains an array of all matched subexpressions (= tokens)
+    // with their offset in column 1 and the matched token in column 0
+    $tokens = array_column($matches[1], 0);
+    $tokenOffsets = array_column($matches[1], 1);
+    
+    return [$tokens, $tokenOffsets];
   }
 }
