@@ -17,10 +17,21 @@ class TokenizedAttributedStringTest extends PHPUnit_Framework_TestCase
     $as = new TokenizedAttributedString(" one two\nthree\rfour\n\r five  ");
     $this->assertEquals([1, 5, 9, 15, 22], $as->getTokenOffsets());
   }
+  
+  public function testGetToken() {
+    $as = new TokenizedAttributedString(" one two\nthree\rfour\n\r five  ");
+    $this->assertEquals("three", $as->getToken(2));
+  }
+  
+  public function testGetTokenOffset() {
+    $as = new TokenizedAttributedString(" one two\nthree\rfour\n\r five  ");
+    $this->assertEquals(9, $as->getTokenOffset(2));
+  }
+  
 
-  public function testSetToken() {
+  public function testSetTokenAttribute() {
     $as = new TokenizedAttributedString("foo bar baz");
-    $as->setToken(1, "bold");
+    $as->setTokenAttribute(1, "bold");
     $this->assertEquals(true, $as->is("bold", 5));
     $this->assertEquals(false, $as->is("bold", 3));
     $this->assertEquals(false, $as->is("bold", 7));
