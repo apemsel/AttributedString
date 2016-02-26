@@ -51,7 +51,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
 
     // try again with byte2Char cache
     $as = new AttributedString("äöü foo bar baz");
-    $as->enableByte2CharCache();
+    $as->enableByteToCharCache();
     $as->setPattern("/b[a-z]{2,2}/", "bold"); // set bar and baz to bold
     $this->assertEquals(true, $as->is("bold", 9));
     $this->assertEquals(false, $as->is("bold", 7));

@@ -6,7 +6,7 @@ class AttributedString implements \Countable
   protected $string;
   protected $attributes;
   protected $length;
-  protected $byte2Char;
+  protected $byteToChar;
   
   public function __construct($string) {
     if (is_string($string)) {
@@ -17,7 +17,7 @@ class AttributedString implements \Countable
       $this->string = $string->string;
       $this->attributes = $string->attributes;
       $this->lenght = $string->length;
-      $this->byte2Char = $string->byte2Char;
+      $this->byteToChar = $string->byteToChar;
     }
     else {
       throw new \InvalidArgumentException();
@@ -75,7 +75,7 @@ class AttributedString implements \Countable
     if ($ret = preg_match_all($pattern, $this->string, $matches, PREG_OFFSET_CAPTURE)) {
       foreach($matches[0] as $match)
       {
-        $match[1] = $this->byte2charOffset($match[1]);
+        $match[1] = $this->byteToCharOffset($match[1]);
         $this->setRange($match[1], $match[1]+mb_strlen($match[0], "utf-8")-1, $attribute, $state);
       }
 
@@ -232,8 +232,8 @@ class AttributedString implements \Countable
     }
   }
   
-  public function enableByte2CharCache() {
-    $this->byte2Char = [];
+  public function enablebyteToCharCache() {
+    $this->byteToChar = [];
     $char = 0;
     for ($i = 0; $i < strlen($this->string); ) {
       $char++;
@@ -241,24 +241,24 @@ class AttributedString implements \Countable
       $cl = self::utf8CharLen($byte);
       $i += $cl;
       
-      $this->byte2Char[$i] = $char;
+      $this->byteToChar[$i] = $char;
     }
   }
   
-  protected function byte2charOffset($boff) {
-    if (isset($this->byte2Char[$boff])) return $this->byte2Char[$boff];
+  protected function byteToCharOffset($boff) {
+    if (isset($this->byteToChar[$boff])) return $this->byteToChar[$boff];
     
-    return $this->byte2Char[$boff] = self::byte2charOffsetString($this->string, $boff);
+    return $this->byteToChar[$boff] = self::byteToCharOffsetString($this->string, $boff);
   }
 
-  protected function char2ByteOffset($char) {
+  protected function charToByteOffset($char) {
     $byte = strlen(mb_substr($this->string, 0, $char, "utf-8"));
-    if (!isset($this->byte2Char[$byte])) $this->byte2Char[$byte] = $char;
+    if (!isset($this->byteToChar[$byte])) $this->byteToChar[$byte] = $char;
     
     return $byte;
   }
   
-  protected static function byte2charOffsetString($string, $boff) {
+  protected static function byteToCharOffsetString($string, $boff) {
     $result = 0;
     
     for ($i = 0; $i < $boff; ) {
