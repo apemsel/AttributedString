@@ -7,8 +7,12 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $as = new AttributedString("foo");
     $this->assertEquals("foo", $as);
     
+    $as2 = new AttributedString($as);
+    $this->assertEquals("foo", $as2);
+    
     $this->setExpectedException('InvalidArgumentException');
     $as = new AttributedString(1);
+    
   }
   
   public function testBasicAttributes() {
