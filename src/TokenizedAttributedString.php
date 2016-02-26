@@ -26,6 +26,14 @@ class TokenizedAttributedString extends AttributedString
     return $this->tokenOffsets;
   }
   
+  public function setToken($i, $attribute, $state = true) {
+    $token = $this->tokens[$i];
+    $offset = $this->tokenOffsets[$i];
+    $length = strlen($token);
+    
+    $this->setLength($offset, $length, $attribute, $state);
+  }
+  
   protected static function tokenizeOnWhitespace($string)
   {
     // Fastest way to get both tokens and their offsets, but not easy to understand.
