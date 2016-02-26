@@ -13,6 +13,12 @@ class AttributedString implements \Countable
       $this->string = $string;
       $this->length = mb_strlen($string, "utf-8");
     }
+    elseif ($string instanceof AttributedString) {
+      $this->string = $string->string;
+      $this->attributes = $string->attributes;
+      $this->lenght = $string->length;
+      $this->byte2Char = $string->byte2Char;
+    }
     else {
       throw new \InvalidArgumentException();
     }
