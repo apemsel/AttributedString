@@ -36,6 +36,15 @@ class TokenizedAttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(false, $as->is("bold", 7));
   }
   
+  
+  public function testSetTokenRangeAttribute() {
+    $as = new TokenizedAttributedString("foo bar baz");
+    $as->setTokenRangeAttribute(1, 2, "bold");
+    $this->assertEquals(true, $as->is("bold", 4));
+    $this->assertEquals(false, $as->is("bold", 3));
+    $this->assertEquals(true, $as->is("bold", 10));
+  }
+  
   public function testAttributesAtToken() {
     $as = new TokenizedAttributedString("foo bar baz");
     $as->setTokenAttribute(1, "bold");
