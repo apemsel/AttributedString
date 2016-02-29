@@ -9,11 +9,15 @@ class TokenizedAttributedString extends AttributedString
   
   public function __construct($string, $tokenizer = "whitespace") {
     $tokenizerFunction = "tokenizeOn".ucfirst($tokenizer);
-    if (!method_exists("apemsel\AttributedString\TokenizedAttributedString", $tokenizerFunction)) {
-      throw new \InvalidArgumentException("Unknown tokenizer $tokenizer");
-    }
 
-    list($this->tokens, $this->tokenOffsets) = self::$tokenizerFunction($string);
+    if ($tokenizer[0] == "/") {
+      list($this->tokens, $this->tokenOffsets) = self::tokenizeOnRegex($string, $tokenizer);
+    } else {
+      if (!method_exists("apemsel\AttributedString\TokenizedAttributedString", $tokenizerFunction)) {
+        throw new \InvalidArgumentException("Unknown tokenizer $tokenizer");
+      }
+      list($this->tokens, $this->tokenOffsets) = self::$tokenizerFunction($string);
+    }
     
     parent::__construct($string);
   }
@@ -53,12 +57,16 @@ class TokenizedAttributedString extends AttributedString
     return $this->attributesAt($this->tokenOffsets[$i]);
   }
   
-  protected static function tokenizeOnWhitespace($string)
-  {
-    // Fastest way to get both tokens and their offsets, but not easy to understand.
+  protected static function tokenizeOnWhitespace($string) {
     // Matches pontential whitespace in front of the token and the token itself.
     // Matching the whitespace could be omitted, but that results in slower execution ;-)
-    preg_match_all('/[\s\n\r]*([^\s\n\r]+)/u', $string, $matches, PREG_OFFSET_CAPTURE);
+    return self::tokenizeOnRegex($string, '/[\s\n\r]*([^\s\n\r]+)/u');
+  }
+  
+  protected static function tokenizeOnRegex($string, $pattern)
+  {
+    // Fastest way to get both tokens and their offsets, but not easy to understand.
+    preg_match_all($pattern, $string, $matches, PREG_OFFSET_CAPTURE);
 
     // $matches[1] contains an array of all matched subexpressions (= tokens)
     // with their offset in column 1 and the matched token in column 0
