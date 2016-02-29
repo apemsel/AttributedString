@@ -10,7 +10,7 @@ class MutableAttributedString extends AttributedString
     if ($pos == $this->length) { // append instead
       $this->string .= $string;
     } else { // insert at $pos
-      $this->string = substr_replace($this->string, $string, $pos, 0);
+      $this->string = self::mb_substr_replace($this->string, $string, $pos, 0);
     }
     
     $this->length += $length;
@@ -34,12 +34,12 @@ class MutableAttributedString extends AttributedString
   public function delete($pos, $length) {
     $leftPart = "";
     if ($pos > 0) {
-      $leftPart = substr($this->string, 0, $pos - 1);
+      $leftPart = mb_substr($this->string, 0, $pos - 1, "utf-8");
     }
     
     $rightPart = "";
     if ($pos + $length < $this->length) {
-      $rightPart = substr($this->string, $pos + $length);
+      $rightPart = mb_substr($this->string, $pos + $length, NULL, "utf-8");
     }
     
     $this->string = $leftPart.$rightPart;
@@ -48,5 +48,41 @@ class MutableAttributedString extends AttributedString
     foreach ($this->attributes as $attribute => &$map) {
       array_splice($map, $pos, $length);
     }
+  }
+  
+  protected static function mb_substr_replace($string, $replacement, $start, $length = NULL) {
+    // taken from https://gist.github.com/stemar/8287074
+    if (is_array($string)) {
+      $num = count($string);
+      // $replacement
+      $replacement = is_array($replacement) ? array_slice($replacement, 0, $num) : array_pad(array($replacement), $num, $replacement);
+      // $start
+      if (is_array($start)) {
+        $start = array_slice($start, 0, $num);
+        foreach ($start as $key => $value) {
+          $start[$key] = is_int($value) ? $value : 0;
+        }
+      } else {
+        $start = array_pad(array($start), $num, $start);
+      }
+      // $length
+      if (!isset($length)) {
+        $length = array_fill(0, $num, 0);
+      } elseif (is_array($length)) {
+        $length = array_slice($length, 0, $num);
+        foreach ($length as $key => $value)
+          $length[$key] = isset($value) ? (is_int($value) ? $value : $num) : 0;
+      } else {
+        $length = array_pad(array($length), $num, $length);
+      }
+      // Recursive call
+      return array_map(__FUNCTION__, $string, $replacement, $start, $length);
+    }
+    preg_match_all('/./us', (string)$string, $smatches);
+    preg_match_all('/./us', (string)$replacement, $rmatches);
+    if ($length === NULL) $length = mb_strlen($string, "utf-8");
+    array_splice($smatches[0], $start, $length, $rmatches[0]);
+    
+    return join($smatches[0]);
   }
 }

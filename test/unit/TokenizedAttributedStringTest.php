@@ -18,7 +18,6 @@ class TokenizedAttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(["foo", "bar", "baz"], $as->getTokens());
   }
   
-  
   public function testGetTokenOffsets() {
     $as = new TokenizedAttributedString(" one two\nthree\rfour\n\r five  ");
     $this->assertEquals([1, 5, 9, 15, 22], $as->getTokenOffsets());
@@ -41,7 +40,6 @@ class TokenizedAttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(false, $as->is("bold", 3));
     $this->assertEquals(false, $as->is("bold", 7));
   }
-  
   
   public function testSetTokenRangeAttribute() {
     $as = new TokenizedAttributedString("foo bar baz");
