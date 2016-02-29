@@ -42,6 +42,6 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   $tas->setTokenAttribute(2, "bold"); // "brown" is "bold"
   $tas->getTokenOffset(2); // 10, "brown" starts at offset 10
   $tas->getTokenOffsets(); // [0, 4, 10, 16], start offsets of the tokens in the string
-  $tas->setTokenAttribute(2, "underlined");
+  $tas->setTokenRangeAttribute(2, 3, "underlined"); // set tokens 2 to 3 to "underlined"
   $tas->getAttributesAtToken(2); // ["bold", "underlined"]
 ```
