@@ -39,7 +39,14 @@ class TokenizedAttributedString extends AttributedString
     $offset = $this->tokenOffsets[$i];
     $length = strlen($token);
     
-    $this->setLength($offset, $length, $attribute, $state);
+    return $this->setLength($offset, $length, $attribute, $state);
+  }
+  
+  public function setTokenRangeAttribute($from, $to, $attribute, $state = true) {
+    $fromOffset = $this->tokenOffsets[$from];
+    $toOffset = $this->tokenOffsets[$to] + strlen($this->tokens[$to]);
+    
+    return $this->setRange($fromOffset, $toOffset, $attribute, $state);
   }
   
   public function attributesAtToken($i) {
