@@ -44,4 +44,8 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   $tas->getTokenOffsets(); // [0, 4, 10, 16], start offsets of the tokens in the string
   $tas->setTokenRangeAttribute(2, 3, "underlined"); // set tokens 2 to 3 to "underlined"
   $tas->getAttributesAtToken(2); // ["bold", "underlined"]
+  $tas->lowercaseTokens(); // convert tokens to lowercase
+  $tas->setTokenDictionaryAttribute(["a", "an", "the"], "article"); // set all tokens contained in given dictionary to an attribute
+  $tas->getAttributesAtToken(0); // "article"
+  
 ```
