@@ -58,8 +58,22 @@ class TokenizedAttributedString extends AttributedString
     return $this->setRange($fromOffset, $toOffset, $attribute, $state);
   }
   
+  public function setTokenDictionaryAttribute($dictionary, $attribute) {
+    foreach($this->tokens as $i => $token) {
+      if (in_array($token, $dictionary)) {
+        $this->setTokenAttribute($i, $attribute);
+      }
+    }
+  }
+  
   public function attributesAtToken($i) {
     return $this->attributesAt($this->tokenOffsets[$i]);
+  }
+  
+  public function lowercaseTokens() {
+    $this->tokens = array_map(function($token) {
+      return mb_strtolower($token, "utf-8");
+    }, $this->tokens);
   }
   
   protected static function tokenizeOnWhitespace($string) {
