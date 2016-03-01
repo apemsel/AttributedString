@@ -2,6 +2,11 @@
 
 namespace apemsel\AttributedString;
 
+/**
+ * Extends AttributedString to support a mutable (changeable) string.
+ *
+ * @author Adrian Pemsel <apemsel@gmail.com>
+ */
 class MutableAttributedString extends AttributedString
 {
   public function insert($pos, $string) {

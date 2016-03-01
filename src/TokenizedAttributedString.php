@@ -2,6 +2,11 @@
 
 namespace apemsel\AttributedString;
 
+/**
+ * Extends AttributedString to support a tokenized string.
+ *
+ * @author Adrian Pemsel <apemsel@gmail.com>
+ */
 class TokenizedAttributedString extends AttributedString
 {
   protected $tokens;
@@ -61,6 +66,10 @@ class TokenizedAttributedString extends AttributedString
     // Matches pontential whitespace in front of the token and the token itself.
     // Matching the whitespace could be omitted, but that results in slower execution ;-)
     return self::tokenizeOnRegex($string, '/[\s\n\r]*([^\s\n\r]+)/u');
+  }
+  
+  protected static function tokenizeOnWords($string) {
+    return self::tokenizeOnRegex($string, '/([\w]+)/u');
   }
   
   protected static function tokenizeOnRegex($string, $pattern)

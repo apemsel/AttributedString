@@ -1,6 +1,12 @@
 <?php
 namespace apemsel\AttributedString;
 
+/**
+ * Basic class to work with attributed strings.
+ * Attributed strings are strings that can have multiple attributes per character of the string
+ *
+ * @author Adrian Pemsel <apemsel@gmail.com>
+ */
 class AttributedString implements \Countable
 {
   protected $string;
@@ -8,6 +14,9 @@ class AttributedString implements \Countable
   protected $length;
   protected $byteToChar;
   
+  /**
+   * @param $string string|AttributedString  Either a simple string or another AttributedString to init the AttributedString
+   */
   public function __construct($string) {
     if (is_string($string)) {
       $this->string = $string;
@@ -24,10 +33,14 @@ class AttributedString implements \Countable
     }
   }
   
+  /**
+   * @return string The native string representation of the AttributedString without attributes
+   */
   public function __toString() {
     return $this->string;
   }
-    
+  
+  
   public function createAttribute($attribute) {
     if ($this->hasAttribute($attribute)) {
       throw new \InvalidArgumentException();
