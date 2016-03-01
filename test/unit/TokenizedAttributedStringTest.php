@@ -49,6 +49,14 @@ class TokenizedAttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(true, $as->is("bold", 10));
   }
   
+  public function testSetTokenDictionaryAttribute() {
+    $as = new TokenizedAttributedString("foo bar baz");
+    $as->setTokenDictionaryAttribute(["baz", "bar"], "bold");
+    $this->assertEquals(true, $as->is("bold", 4));
+    $this->assertEquals(false, $as->is("bold", 3));
+    $this->assertEquals(true, $as->is("bold", 10));
+  }
+  
   public function testAttributesAtToken() {
     $as = new TokenizedAttributedString("foo bar baz");
     $as->setTokenAttribute(1, "bold");
@@ -56,5 +64,11 @@ class TokenizedAttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(["underlined"], $as->attributesAtToken(2));
     $this->assertEquals(["bold", "underlined"], $as->attributesAtToken(1));
     $this->assertEquals([], $as->attributesAtToken(0));
+  }
+  
+  public function testLowercaseTokens() {
+    $as = new TokenizedAttributedString("FOO bar bAz");
+    $as->lowercaseTokens();
+    $this->assertEquals(["foo", "bar", "baz"], $as->getTokens());
   }
 }
