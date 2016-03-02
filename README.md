@@ -47,5 +47,8 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   $tas->lowercaseTokens(); // convert tokens to lowercase
   $tas->setTokenDictionaryAttribute(["a", "an", "the"], "article"); // set all tokens contained in given dictionary to an attribute
   $tas->getAttributesAtToken(0); // "article"
-  
 ```
+
+## Documentation
+See the generated phpdoc API documentation in the doc/ directory or try
+<http://htmlpreview.github.io/?https://raw.githubusercontent.com/apemsel/AttributedString/master/doc/index.html>Documentation
