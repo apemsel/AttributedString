@@ -9,6 +9,12 @@ namespace apemsel\AttributedString;
  */
 class MutableAttributedString extends AttributedString
 {
+  /**
+   * Insert string at given offset
+   *
+   * @param int $pos offset
+   * @param string $string string to be inserted
+   */
   public function insert($pos, $string) {
     $length = mb_strlen($string, "utf-8");
     
@@ -36,6 +42,12 @@ class MutableAttributedString extends AttributedString
     }
   }
   
+  /**
+   * Delete substring of given offset and length
+   *
+   * @param int $pos offset
+   * @param int $length length
+   */
   public function delete($pos, $length) {
     $leftPart = "";
     if ($pos > 0) {
@@ -55,8 +67,18 @@ class MutableAttributedString extends AttributedString
     }
   }
   
+  /**
+   * Missing mb_substr_replace() implementation
+   *
+   * @see https://gist.github.com/stemar/8287074
+   * @param string $string string to work on
+   * @param string $replacement replacement string
+   * @param int $start offset
+   * @param int $length length
+   * @return string modified string
+   */
   protected static function mb_substr_replace($string, $replacement, $start, $length = NULL) {
-    // taken from https://gist.github.com/stemar/8287074
+    
     if (is_array($string)) {
       $num = count($string);
       // $replacement
