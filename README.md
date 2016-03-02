@@ -51,4 +51,4 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
 
 ## Documentation
 See the generated phpdoc API documentation in the doc/ directory or try
-<http://htmlpreview.github.io/?https://raw.githubusercontent.com/apemsel/AttributedString/master/doc/index.html>Documentation
+http://htmlpreview.github.io/?https://raw.githubusercontent.com/apemsel/AttributedString/master/doc/index.html
