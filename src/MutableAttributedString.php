@@ -70,7 +70,7 @@ class MutableAttributedString extends AttributedString
   /**
    * Missing mb_substr_replace() implementation
    *
-   * @see https://gist.github.com/stemar/8287074
+   * @see https://gist.github.com/stemar/8287074 Original source
    * @param string $string string to work on
    * @param string $replacement replacement string
    * @param int $start offset

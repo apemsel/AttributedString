@@ -12,6 +12,10 @@ class TokenizedAttributedString extends AttributedString
   protected $tokens;
   protected $tokenOffsets;
   
+  /**
+   * @param string|AttributedString $string String to work on
+   * @param string $tokenizer Tokenizer to use, either "whitespace", "word" or a custom regex
+   */
   public function __construct($string, $tokenizer = "whitespace") {
     $tokenizerFunction = "tokenizeOn".ucfirst($tokenizer);
 
@@ -27,22 +31,51 @@ class TokenizedAttributedString extends AttributedString
     parent::__construct($string);
   }
   
+  /**
+   * Return all tokens
+   *
+   * @return string[] tokens
+   */
   public function getTokens() {
     return $this->tokens;
   }
   
+  /**
+   * Return all tokens' offsets
+   *
+   * @return in[] offsets
+   */
   public function getTokenOffsets() {
     return $this->tokenOffsets;
   }
 
+  /**
+   * Get indicated token
+   *
+   * @param int $i token index
+   * @return string token
+   */
   public function getToken($i) {
     return $this->tokens[$i];
   }
   
+  /**
+   * Get indicated token offset
+   *
+   * @param int $i token index
+   * @return int offset
+   */
   public function getTokenOffset($i) {
     return $this->tokenOffsets[$i];
   }
-    
+  
+  /**
+   * Set a token to a given attribute and state
+   *
+   * @param int $i token index
+   * @param string $attribute attribute name
+   * @param bool $state attribute state
+   */
   public function setTokenAttribute($i, $attribute, $state = true) {
     $token = $this->tokens[$i];
     $offset = $this->tokenOffsets[$i];
@@ -51,6 +84,14 @@ class TokenizedAttributedString extends AttributedString
     return $this->setLength($offset, $length, $attribute, $state);
   }
   
+  /**
+   * Set a range of tokens to a given attribute and state
+   *
+   * @param int $from token start index
+   * @param int $to token end index
+   * @param string $attribute attribute name
+   * @param bool $state attribute state
+   */
   public function setTokenRangeAttribute($from, $to, $attribute, $state = true) {
     $fromOffset = $this->tokenOffsets[$from];
     $toOffset = $this->tokenOffsets[$to] + strlen($this->tokens[$to]);
@@ -58,18 +99,34 @@ class TokenizedAttributedString extends AttributedString
     return $this->setRange($fromOffset, $toOffset, $attribute, $state);
   }
   
-  public function setTokenDictionaryAttribute($dictionary, $attribute) {
+  /**
+   * Set all tokens matching given dictionary to attribute and state
+   *
+   * @param string[] $dictionary dictionary
+   * @param string $attribute attribute name
+   * @param bool $state attribute state
+   */
+  public function setTokenDictionaryAttribute($dictionary, $attribute, $state = true) {
     foreach($this->tokens as $i => $token) {
       if (in_array($token, $dictionary)) {
-        $this->setTokenAttribute($i, $attribute);
+        $this->setTokenAttribute($i, $attribute, $state);
       }
     }
   }
   
+  /**
+   * Get all attribute of token at given index
+   *
+   * @param int token index
+   * @return string[] attributes
+   */
   public function attributesAtToken($i) {
     return $this->attributesAt($this->tokenOffsets[$i]);
   }
   
+  /*
+   * Convert all tokens to lower case
+   */
   public function lowercaseTokens() {
     $this->tokens = array_map(function($token) {
       return mb_strtolower($token, "utf-8");
