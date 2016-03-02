@@ -49,6 +49,12 @@ A class to work with attributed strings in PHP. Attributed strings are strings t
   $tas->getAttributesAtToken(0); // "article"
 ```
 
+## Installation
+### Using Composer (recommended)
+```
+composer require apemsel/AttributedString
+```
+
 ## Documentation
 See the generated phpdoc API documentation in the doc/ directory or try
 http://htmlpreview.github.io/?https://raw.githubusercontent.com/apemsel/AttributedString/master/doc/index.html
