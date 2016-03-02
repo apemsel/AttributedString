@@ -15,7 +15,7 @@ class AttributedString implements \Countable
   protected $byteToChar;
   
   /**
-   * @param $string string|AttributedString  Either a simple string or another AttributedString to init the AttributedString
+   * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
    */
   public function __construct($string) {
     if (is_string($string)) {
@@ -34,13 +34,20 @@ class AttributedString implements \Countable
   }
   
   /**
+   * Returns the native string
+   *
    * @return string The native string representation of the AttributedString without attributes
    */
   public function __toString() {
     return $this->string;
   }
   
-  
+  /**
+   * Creates a new attribute layer
+   *
+   * @param string $attribute The name of the new attribute
+   * @throws InvalidArgumentException if the attribute already exists
+   */
   public function createAttribute($attribute) {
     if ($this->hasAttribute($attribute)) {
       throw new \InvalidArgumentException();
@@ -49,6 +56,12 @@ class AttributedString implements \Countable
     $this->attributes[$attribute] = array_fill(0, $this->length, false);
   }
   
+  /**
+   * Check if the given attribute exists
+   *
+   * @param string $attribute The name of the attribute to check
+   * @return bool
+   */
   public function hasAttribute($attribute) {
     return isset($this->attributes[$attribute]);
   }
@@ -59,6 +72,14 @@ class AttributedString implements \Countable
     }
   }
   
+  /**
+   * Set given range of the string to an attribute and state
+   *
+   * @param int $from start offset
+   * @param int $to end offset
+   * @param string $attribute name of the attribute to be set
+   * @param bool $state set state to true (default) or false
+   */
   public function setRange($from, $to, $attribute, $state = true) {
     // Ensure correct range
     $from = min($from, $this->length);
@@ -80,10 +101,26 @@ class AttributedString implements \Countable
     $this->attributes[$attribute] = array_replace($this->attributes[$attribute], array_fill($from, $to-$from+1, $state));
   }
   
+  /**
+   * Set given length of the string to an attribute and state
+   *
+   * @param int $from start offset
+   * @param int $length length to be set
+   * @param string $attribute name of the attribute to be set
+   * @param bool $state set state to true (default) or false
+   */
   public function setLength($from, $length, $attribute, $state = true) {
     return $this->setRange($from, $from + $length - 1, $attribute, $state);
   }
   
+  /**
+   * Set parts of the string matching a given regex to an attribute and state
+   *
+   * @param string $pattern regex pattern
+   * @param string $attribute name of the attribute to be set
+   * @param bool $state set state to true (default) or false
+   * @return int number of matches
+   */
   public function setPattern($pattern, $attribute, $state = true) {
     if ($ret = preg_match_all($pattern, $this->string, $matches, PREG_OFFSET_CAPTURE)) {
       foreach($matches[0] as $match)
@@ -96,13 +133,22 @@ class AttributedString implements \Countable
     }
   }
   
-  public function setSubstring($substring, $attribute, $all = true, $matchCase = true) {
+  /**
+   * Set given substring to an attribute and state
+   *
+   * @param string $substring the substring to search
+   * @param string $attribute name of the attribute to be set
+   * @param bool $all set first or all occurences of the substring
+   * @param bool $matchCase match or ignore case
+   * @param bool $state set state to true (default) or false
+   */
+  public function setSubstring($substring, $attribute, $all = true, $matchCase = true, $state = true) {
     $offset = 0;
     $length = mb_strlen($substring, "utf-8");
     $func = $matchCase ? "mb_strpos" : "mb_stripos";
     
     while (false !== $pos = $func($this->string, $substring, $offset, "utf-8")) {
-      $this->setRange($pos, $pos + $length - 1, $attribute);
+      $this->setRange($pos, $pos + $length - 1, $attribute, $state);
       if (!$all) {
         return;
       }
@@ -110,6 +156,16 @@ class AttributedString implements \Countable
     }
   }
   
+  /**
+   * Search inside the string for ranges with the given attribute
+   *
+   * @param string $attribute name of the attribute to search
+   * @param int $offset start offset
+   * @param bool $returnLength if true (default is false), return an array with position and length of the found range
+   * @param bool $state the state to look for (default is true)
+   * @param bool $strict perform strict comparison during search
+   * @return int|int[] either position or position and lenght in an array
+   */
   public function searchAttribute($attribute, $offset = 0, $returnLength = false, $state = true, $strict = true) {
     if (!$this->hasAttribute($attribute)) {
       return false;
@@ -138,10 +194,23 @@ class AttributedString implements \Countable
     }
   }
   
+  /**
+   * Check for given attribute at a offset
+   *
+   * @param string $attribute name of the attribute to check
+   * @param int $pos offset to check
+   * @return bool true if string has the attribute at the given position
+   */
   public function is($attribute, $pos) {
     return (isset($this->attributes[$attribute][$pos]) and $this->attributes[$attribute][$pos]);
   }
   
+  /**
+   * Return all attributes at a given offset
+   *
+   * @param int $pos offset
+   * @return string[] attributes at the given offset
+   */
   public function attributesAt($pos) {
     $attributes = [];
 
@@ -154,6 +223,14 @@ class AttributedString implements \Countable
     return $attributes;
   }
   
+  /**
+   * Convert to HTML, using a given class to mark attribute spans
+   *
+   * @param string $tag HTML tag to use for the spans (defaults is "<span>")
+   * @param string $classPrefix Optional prefix used to convert the attribute names to class names
+   * @return string HTML
+   * @throws Exception if the AttributedString cannot be converted to HTML due to improper nesting
+   */
   public function toHtml($tag = "span", $classPrefix = "") {
     foreach($this->attributes as $attribute => $map) $state[$attribute] = false;
 
@@ -197,6 +274,15 @@ class AttributedString implements \Countable
     return $html;
   }
   
+  /**
+   * Combine attributes with the given boolean operation
+   *
+   * @param string $op one of or|xor|and|not
+   * @param string $attribute1 name of the first attribute
+   * @param string $attribute2 Name of the second attribute. Ignored for "not" operation.
+   * @param string $to optional name of the attribute to copy the result to
+   * @throws InvalidArgumentException if one of the attributes does not exist or an unkown operation is given
+   */
   public function combineAttributes($op, $attribute1, $attribute2 = false, $to = false)
   {
     $to = isset($to) ? $to : $attribute1;
@@ -245,6 +331,11 @@ class AttributedString implements \Countable
     }
   }
   
+  /**
+   * Enable and fill cache for byte to char offset conversion
+   *
+   * May improve performance if setPattern is used extensively
+   */
   public function enablebyteToCharCache() {
     $this->byteToChar = [];
     $char = 0;
@@ -297,7 +388,11 @@ class AttributedString implements \Countable
     }
   }
   
-  // For Countable interface
+  /**
+   * Return string length (number of UTF-8 chars, not strlen())
+   *
+   * @return int string length
+   */
   public function count() {
     return $this->length;
   }
