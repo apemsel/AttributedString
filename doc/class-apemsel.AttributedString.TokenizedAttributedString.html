@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+
+	<title>Class apemsel\AttributedString\TokenizedAttributedString</title>
+
+	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
+	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
+
+</head>
+
+<body>
+	<nav id="navigation" class="navbar navbar-default navbar-fixed-top">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a href="index.html" class="navbar-brand">Overview</a>
+			</div>
+			<div class="collapse navbar-collapse">
+
+                <form id="search" class="navbar-form navbar-left" role="search">
+                    <input type="hidden" name="cx" value="">
+                    <input type="hidden" name="ie" value="UTF-8">
+                    <div class="form-group">
+                        <input type="text" name="q" class="search-query form-control" placeholder="Search">
+					</div>
+				</form>
+
+				<ul class="nav navbar-nav">
+					<li>
+						<a href="namespace-apemsel.AttributedString.html" title="Summary of apemsel\AttributedString"><span>Namespace</span></a>
+					</li>
+					<li class="active">
+<span>Class</span>					</li>
+
+
+
+
+
+				</ul>
+			</div>
+		</div>
+	</nav>
+
+	<div id="left">
+	<div id="menu">
+
+		<div id="groups">
+				<h3>Namespaces</h3>
+			<ul>
+					<li class="active">
+						<a href="namespace-apemsel.html">
+							apemsel<span></span>
+						</a>
+							<ul>
+					<li class="active">
+						<a href="namespace-apemsel.AttributedString.html">
+							AttributedString						</a>
+							</li>
+								</ul></li>
+			</ul>
+		</div>
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-apemsel.AttributedString.AttributedString.html">AttributedString</a></li>
+				<li><a href="class-apemsel.AttributedString.MutableAttributedString.html">MutableAttributedString</a></li>
+				<li class="active"><a href="class-apemsel.AttributedString.TokenizedAttributedString.html">TokenizedAttributedString</a></li>
+			</ul>
+
+
+
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+	<div id="rightInner">
+<div id="content" class="class">
+	<h1>Class TokenizedAttributedString</h1>
+
+
+	<div class="description">
+	<p>Extends AttributedString to support a tokenized string.</p>
+	</div>
+
+	<dl class="tree well">
+		<dd style="padding-left:0px">
+			<a href="class-apemsel.AttributedString.AttributedString.html"><span>apemsel\AttributedString\AttributedString</span></a>
+			
+			 implements 
+<span>Countable</span>
+			
+			
+		</dd>
+		<dd style="padding-left:30px">
+			<img src="resources/inherit.png" alt="Extended by">
+<b><span>apemsel\AttributedString\TokenizedAttributedString</span></b>			
+			
+			
+		</dd>
+	</dl>
+
+
+
+
+
+
+
+
+	<div class="alert alert-info">
+		
+		
+		<b>Namespace:</b> <a href="namespace-apemsel.html">apemsel</a>\<a href="namespace-apemsel.AttributedString.html">AttributedString</a><br>
+		
+
+				<b>Author:</b>
+				Adrian Pemsel <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a><br>
+			<b>Located at</b> <a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#5-101" title="Go to source code">TokenizedAttributedString.php</a>
+		<br>
+	</div>
+
+
+
+		<div class="panel panel-default">
+			<div class="panel-heading"><h2>Methods summary</h2></div>
+			<table class="summary table table-bordered table-striped methods" id="methods">
+		<tr data-order="__construct" id="___construct">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#___construct">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#15-28" title="Go to source code">__construct</a>( <span>string|<code><a href="class-apemsel.AttributedString.AttributedString.html">apemsel\AttributedString\AttributedString</a></code> <var>$string</var></span>, <span> <var>$tokenizer</var> = <span class="php-quote">&quot;whitespace&quot;</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$string</var></dt>
+						<dd>Either a simple string or another AttributedString to init the AttributedString</dd>
+						<dt><var>$tokenizer</var></dt>
+						<dd></dd>
+					</dl></div>
+
+
+
+
+					<h4>Overrides</h4>
+					<div class="list"><code><a href="class-apemsel.AttributedString.AttributedString.html#___construct">apemsel\AttributedString\AttributedString::__construct</a></code></div>
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getTokens" id="_getTokens">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getTokens">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#30-32" title="Go to source code">getTokens</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getTokenOffsets" id="_getTokenOffsets">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getTokenOffsets">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#34-36" title="Go to source code">getTokenOffsets</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getToken" id="_getToken">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getToken">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#38-40" title="Go to source code">getToken</a>( <span> <var>$i</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="getTokenOffset" id="_getTokenOffset">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getTokenOffset">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#42-44" title="Go to source code">getTokenOffset</a>( <span> <var>$i</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setTokenAttribute" id="_setTokenAttribute">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setTokenAttribute">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#46-52" title="Go to source code">setTokenAttribute</a>( <span> <var>$i</var></span>, <span> <var>$attribute</var></span>, <span> <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setTokenRangeAttribute" id="_setTokenRangeAttribute">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setTokenRangeAttribute">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#54-59" title="Go to source code">setTokenRangeAttribute</a>( <span> <var>$from</var></span>, <span> <var>$to</var></span>, <span> <var>$attribute</var></span>, <span> <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="setTokenDictionaryAttribute" id="_setTokenDictionaryAttribute">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_setTokenDictionaryAttribute">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#61-67" title="Go to source code">setTokenDictionaryAttribute</a>( <span> <var>$dictionary</var></span>, <span> <var>$attribute</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="attributesAtToken" id="_attributesAtToken">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_attributesAtToken">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#69-71" title="Go to source code">attributesAtToken</a>( <span> <var>$i</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="lowercaseTokens" id="_lowercaseTokens">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_lowercaseTokens">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#73-77" title="Go to source code">lowercaseTokens</a>( )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="tokenizeOnWhitespace" id="_tokenizeOnWhitespace">
+
+			<td class="attributes"><code>
+				 protected static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_tokenizeOnWhitespace">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#79-83" title="Go to source code">tokenizeOnWhitespace</a>( <span> <var>$string</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="tokenizeOnWords" id="_tokenizeOnWords">
+
+			<td class="attributes"><code>
+				 protected static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_tokenizeOnWords">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#85-87" title="Go to source code">tokenizeOnWords</a>( <span> <var>$string</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+		<tr data-order="tokenizeOnRegex" id="_tokenizeOnRegex">
+
+			<td class="attributes"><code>
+				 protected static
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_tokenizeOnRegex">#</a>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#89-100" title="Go to source code">tokenizeOnRegex</a>( <span> <var>$string</var></span>, <span> <var>$pattern</var></span> )</code>
+
+			<div class="description short">
+				
+			</div>
+
+			<div class="description detailed hidden">
+				
+
+
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
+			</table>
+		</div>
+
+		<div class="panel panel-default">
+	        <div class="panel-heading"><h3>Methods inherited from <a href="class-apemsel.AttributedString.AttributedString.html#methods">apemsel\AttributedString\AttributedString</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#___toString">__toString()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_attributesAt">attributesAt()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_byteToCharOffset">byteToCharOffset()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_byteToCharOffsetString">byteToCharOffsetString()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_charToByteOffset">charToByteOffset()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_combineAttributes">combineAttributes()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_count">count()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_createAttribute">createAttribute()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_deleteAttribute">deleteAttribute()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_enablebyteToCharCache">enablebyteToCharCache()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_hasAttribute">hasAttribute()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_is">is()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_searchAttribute">searchAttribute()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_setLength">setLength()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_setPattern">setPattern()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_setRange">setRange()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_setSubstring">setSubstring()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_toHtml">toHtml()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_utf8CharLen">utf8CharLen()</a></code>
+			</p>
+		</div>
+
+
+
+
+
+
+
+
+
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h2>Properties summary</h2></div>
+			<table class="summary table table-bordered table-striped properties" id="properties">
+		<tr data-order="tokens" id="$tokens">
+			<td class="attributes"><code>
+				protected  
+				
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#12" title="Go to source code"><var>$tokens</var></a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$tokens" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="tokenOffsets" id="$tokenOffsets">
+			<td class="attributes"><code>
+				protected  
+				
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#13" title="Go to source code"><var>$tokenOffsets</var></a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$tokenOffsets" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+			</table>
+		</div>
+
+		<div class="panel panel-default">
+            <div class="panel-heading"><h3>Properties inherited from <a href="class-apemsel.AttributedString.AttributedString.html#properties">apemsel\AttributedString\AttributedString</a></h3></div>
+			<p class="elementList">
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#$attributes"><var>$attributes</var></a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#$byteToChar"><var>$byteToChar</var></a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#$length"><var>$length</var></a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#$string"><var>$string</var></a></code>
+			</p>
+		</div>
+
+
+
+
+
+</div>
+	</div>
+
+	<div id="footer">
+		 API documentation generated by <a href="http://apigen.org">ApiGen</a>
+	</div>
+</div>
+<script src="resources/combined.js"></script>
+<script src="elementlist.js"></script>
+</body>
+</html>
