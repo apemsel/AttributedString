@@ -88,6 +88,9 @@
 
 	<div class="description">
 	<p>Extends AttributedString to support a tokenized string.</p>
+
+<p>You can mix working with tokens with working on string ranges using the AttributedString methods.
+The original string is preserved.</p>
 	</div>
 
 	<dl class="tree well">
@@ -122,7 +125,7 @@
 
 				<b>Author:</b>
 				Adrian Pemsel <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a><br>
-			<b>Located at</b> <a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#5-101" title="Go to source code">TokenizedAttributedString.php</a>
+			<b>Located at</b> <a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#5-161" title="Go to source code">TokenizedAttributedString.php</a>
 		<br>
 	</div>
 
@@ -142,7 +145,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#15-28" title="Go to source code">__construct</a>( <span>string|<code><a href="class-apemsel.AttributedString.AttributedString.html">apemsel\AttributedString\AttributedString</a></code> <var>$string</var></span>, <span> <var>$tokenizer</var> = <span class="php-quote">&quot;whitespace&quot;</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#18-35" title="Go to source code">__construct</a>( <span>string|<code><a href="class-apemsel.AttributedString.AttributedString.html">apemsel\AttributedString\AttributedString</a></code> <var>$string</var></span>, <span>string <var>$tokenizer</var> = <span class="php-quote">&quot;whitespace&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -155,9 +158,9 @@
 					<h4>Parameters</h4>
 					<div class="list"><dl>
 						<dt><var>$string</var></dt>
-						<dd>Either a simple string or another AttributedString to init the AttributedString</dd>
+						<dd>String to work on</dd>
 						<dt><var>$tokenizer</var></dt>
-						<dd></dd>
+						<dd>Tokenizer to use, either "whitespace", "word" or a custom regex</dd>
 					</dl></div>
 
 
@@ -173,24 +176,28 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string[]
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getTokens">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#30-32" title="Go to source code">getTokens</a>( )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#37-44" title="Go to source code">getTokens</a>( )</code>
 
 			<div class="description short">
-				
+				<p>Return all tokens</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Return all tokens</p>
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						string[]<br>tokens
+					</div>
 
 
 
@@ -202,24 +209,28 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				in[]
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getTokenOffsets">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#34-36" title="Go to source code">getTokenOffsets</a>( )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#46-53" title="Go to source code">getTokenOffsets</a>( )</code>
 
 			<div class="description short">
-				
+				<p>Return all tokens' offsets</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Return all tokens' offsets</p>
 
 
 
+					<h4>Returns</h4>
+					<div class="list">
+						in[]<br>offsets
+					</div>
 
 
 
@@ -231,24 +242,33 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getToken">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#38-40" title="Go to source code">getToken</a>( <span> <var>$i</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#55-63" title="Go to source code">getToken</a>( <span>integer <var>$i</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Get indicated token</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Get indicated token</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$i</var></dt>
+						<dd>token index</dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>token
+					</div>
 
 
 
@@ -260,24 +280,33 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				integer
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_getTokenOffset">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#42-44" title="Go to source code">getTokenOffset</a>( <span> <var>$i</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#65-73" title="Go to source code">getTokenOffset</a>( <span>integer <var>$i</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Get indicated token offset</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Get indicated token offset</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$i</var></dt>
+						<dd>token index</dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						integer<br>offset
+					</div>
 
 
 
@@ -296,16 +325,25 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setTokenAttribute">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#46-52" title="Go to source code">setTokenAttribute</a>( <span> <var>$i</var></span>, <span> <var>$attribute</var></span>, <span> <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#75-88" title="Go to source code">setTokenAttribute</a>( <span>integer <var>$i</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
-				
+				<p>Set a token to a given attribute and state</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Set a token to a given attribute and state</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$i</var></dt>
+						<dd>token index</dd>
+						<dt><var>$attribute</var></dt>
+						<dd>attribute name</dd>
+						<dt><var>$state</var></dt>
+						<dd>attribute state</dd>
+					</dl></div>
 
 
 
@@ -325,16 +363,27 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setTokenRangeAttribute">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#54-59" title="Go to source code">setTokenRangeAttribute</a>( <span> <var>$from</var></span>, <span> <var>$to</var></span>, <span> <var>$attribute</var></span>, <span> <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#90-103" title="Go to source code">setTokenRangeAttribute</a>( <span>integer <var>$from</var></span>, <span>integer <var>$to</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
-				
+				<p>Set a range of tokens to a given attribute and state</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Set a range of tokens to a given attribute and state</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$from</var></dt>
+						<dd>token start index</dd>
+						<dt><var>$to</var></dt>
+						<dd>token end index</dd>
+						<dt><var>$attribute</var></dt>
+						<dd>attribute name</dd>
+						<dt><var>$state</var></dt>
+						<dd>attribute state</dd>
+					</dl></div>
 
 
 
@@ -354,16 +403,25 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setTokenDictionaryAttribute">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#61-67" title="Go to source code">setTokenDictionaryAttribute</a>( <span> <var>$dictionary</var></span>, <span> <var>$attribute</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#105-118" title="Go to source code">setTokenDictionaryAttribute</a>( <span>string[] <var>$dictionary</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
-				
+				<p>Set all tokens matching given dictionary to attribute and state</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Set all tokens matching given dictionary to attribute and state</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$dictionary</var></dt>
+						<dd>dictionary</dd>
+						<dt><var>$attribute</var></dt>
+						<dd>attribute name</dd>
+						<dt><var>$state</var></dt>
+						<dd>attribute state</dd>
+					</dl></div>
 
 
 
@@ -376,24 +434,33 @@
 
 			<td class="attributes"><code>
 				 public 
-				
+				string[]
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attributesAtToken">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#69-71" title="Go to source code">attributesAtToken</a>( <span> <var>$i</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#120-128" title="Go to source code">attributesAtToken</a>( <span>integer <var>$i</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Get all attribute of token at given index</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Get all attribute of token at given index</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$i</var></dt>
+						<dd>index</dd>
+					</dl></div>
 
+					<h4>Returns</h4>
+					<div class="list">
+						string[]<br>attributes
+					</div>
 
 
 
@@ -412,7 +479,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_lowercaseTokens">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#73-77" title="Go to source code">lowercaseTokens</a>( )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#133-137" title="Go to source code">lowercaseTokens</a>( )</code>
 
 			<div class="description short">
 				
@@ -441,7 +508,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_tokenizeOnWhitespace">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#79-83" title="Go to source code">tokenizeOnWhitespace</a>( <span> <var>$string</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#139-143" title="Go to source code">tokenizeOnWhitespace</a>( <span> <var>$string</var></span> )</code>
 
 			<div class="description short">
 				
@@ -470,7 +537,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_tokenizeOnWords">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#85-87" title="Go to source code">tokenizeOnWords</a>( <span> <var>$string</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#145-147" title="Go to source code">tokenizeOnWords</a>( <span> <var>$string</var></span> )</code>
 
 			<div class="description short">
 				
@@ -499,7 +566,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_tokenizeOnRegex">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#89-100" title="Go to source code">tokenizeOnRegex</a>( <span> <var>$string</var></span>, <span> <var>$pattern</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#149-160" title="Go to source code">tokenizeOnRegex</a>( <span> <var>$string</var></span>, <span> <var>$pattern</var></span> )</code>
 
 			<div class="description short">
 				
@@ -564,7 +631,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#12" title="Go to source code"><var>$tokens</var></a>
+					<a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#15" title="Go to source code"><var>$tokens</var></a>
 
 				<div class="description short">
 					
@@ -589,7 +656,7 @@
 			</code></td>
 
 			<td class="name">
-					<a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#13" title="Go to source code"><var>$tokenOffsets</var></a>
+					<a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#16" title="Go to source code"><var>$tokenOffsets</var></a>
 
 				<div class="description short">
 					

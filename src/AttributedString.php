@@ -3,6 +3,7 @@ namespace apemsel\AttributedString;
 
 /**
  * Basic class to work with attributed strings.
+ * 
  * Attributed strings are strings that can have multiple attributes per character of the string
  *
  * @author Adrian Pemsel <apemsel@gmail.com>

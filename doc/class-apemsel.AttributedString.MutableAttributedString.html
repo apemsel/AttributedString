@@ -88,6 +88,8 @@
 
 	<div class="description">
 	<p>Extends AttributedString to support a mutable (changeable) string.</p>
+
+<p>During insert and delete operations the attribute layers are updated as smart as possible.</p>
 	</div>
 
 	<dl class="tree well">
@@ -122,7 +124,7 @@
 
 				<b>Author:</b>
 				Adrian Pemsel <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a><br>
-			<b>Located at</b> <a href="source-class-apemsel.AttributedString.MutableAttributedString.html#5-93" title="Go to source code">MutableAttributedString.php</a>
+			<b>Located at</b> <a href="source-class-apemsel.AttributedString.MutableAttributedString.html#5-117" title="Go to source code">MutableAttributedString.php</a>
 		<br>
 	</div>
 
@@ -142,16 +144,23 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_insert">#</a>
-			<code><a href="source-class-apemsel.AttributedString.MutableAttributedString.html#12-37" title="Go to source code">insert</a>( <span> <var>$pos</var></span>, <span> <var>$string</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.MutableAttributedString.html#14-45" title="Go to source code">insert</a>( <span>integer <var>$pos</var></span>, <span>string <var>$string</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Insert string at given offset</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Insert string at given offset</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$pos</var></dt>
+						<dd>offset</dd>
+						<dt><var>$string</var></dt>
+						<dd>string to be inserted</dd>
+					</dl></div>
 
 
 
@@ -171,16 +180,23 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_delete">#</a>
-			<code><a href="source-class-apemsel.AttributedString.MutableAttributedString.html#39-56" title="Go to source code">delete</a>( <span> <var>$pos</var></span>, <span> <var>$length</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.MutableAttributedString.html#47-70" title="Go to source code">delete</a>( <span>integer <var>$pos</var></span>, <span>integer <var>$length</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Delete substring of given offset and length</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Delete substring of given offset and length</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$pos</var></dt>
+						<dd>offset</dd>
+						<dt><var>$length</var></dt>
+						<dd>length</dd>
+					</dl></div>
 
 
 
@@ -193,26 +209,45 @@
 
 			<td class="attributes"><code>
 				 protected static
-				
+				string
 				
 				</code>
 			</td>
 
 			<td class="name"><div>
 			<a class="anchor" href="#_mb_substr_replace">#</a>
-			<code><a href="source-class-apemsel.AttributedString.MutableAttributedString.html#58-92" title="Go to source code">mb_substr_replace</a>( <span> <var>$string</var></span>, <span> <var>$replacement</var></span>, <span> <var>$start</var></span>, <span> <var>$length</var> = <span class="php-keyword1">NULL</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.MutableAttributedString.html#72-116" title="Go to source code">mb_substr_replace</a>( <span>string <var>$string</var></span>, <span>string <var>$replacement</var></span>, <span>integer <var>$start</var></span>, <span>integer <var>$length</var> = <span class="php-keyword1">NULL</span></span> )</code>
 
 			<div class="description short">
-				
+				<p>Missing mb_substr_replace() implementation</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Missing mb_substr_replace() implementation</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$string</var></dt>
+						<dd>string to work on</dd>
+						<dt><var>$replacement</var></dt>
+						<dd>replacement string</dd>
+						<dt><var>$start</var></dt>
+						<dd>offset</dd>
+						<dt><var>$length</var></dt>
+						<dd>length</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						string<br>modified string
+					</div>
 
 
-
+					<h4>See</h4>
+					<div class="list">
+							https://gist.github.com/stemar/8287074 Original source<br>
+					</div>
 
 
 			</div>

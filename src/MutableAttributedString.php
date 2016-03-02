@@ -5,6 +5,8 @@ namespace apemsel\AttributedString;
 /**
  * Extends AttributedString to support a mutable (changeable) string.
  *
+ * During insert and delete operations the attribute layers are updated as smart as possible.
+ *
  * @author Adrian Pemsel <apemsel@gmail.com>
  */
 class MutableAttributedString extends AttributedString

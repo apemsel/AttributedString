@@ -5,6 +5,9 @@ namespace apemsel\AttributedString;
 /**
  * Extends AttributedString to support a tokenized string.
  *
+ * You can mix working with tokens with working on string ranges using the AttributedString methods.
+ * The original string is preserved.
+ *
  * @author Adrian Pemsel <apemsel@gmail.com>
  */
 class TokenizedAttributedString extends AttributedString
