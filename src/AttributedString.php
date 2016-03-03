@@ -297,7 +297,7 @@ class AttributedString implements \Countable
           {
             if ($attribute != array_pop($stack))
             {
-              throw new Exception("Attributes are not properly nested for HTML conversion");
+              throw new \Exception("Attributes are not properly nested for HTML conversion");
             }
             $html .= "</$tag>";
           }
