@@ -1,5 +1,4 @@
 <?php
-
 namespace apemsel\AttributedString;
 
 /**
@@ -46,10 +45,19 @@ class TokenizedAttributedString extends AttributedString
   /**
    * Return all tokens' offsets
    *
-   * @return in[] offsets
+   * @return int[] offsets
    */
   public function getTokenOffsets() {
     return $this->tokenOffsets;
+  }
+  
+  /**
+   * Return the number of tokens
+   *
+   * @return int count
+   */
+  public function getTokenCount() {
+    return count($this->tokens);
   }
 
   /**
@@ -127,7 +135,7 @@ class TokenizedAttributedString extends AttributedString
     return $this->attributesAt($this->tokenOffsets[$i]);
   }
   
-  /*
+  /**
    * Convert all tokens to lower case
    */
   public function lowercaseTokens() {
@@ -136,17 +144,36 @@ class TokenizedAttributedString extends AttributedString
     }, $this->tokens);
   }
   
-  protected static function tokenizeOnWhitespace($string) {
+  /**
+   * Tokenize a string on whitespace
+   *
+   * @param string $string string to be tokenized
+   * @return string[] tokens
+   */
+  public static function tokenizeOnWhitespace($string) {
     // Matches pontential whitespace in front of the token and the token itself.
     // Matching the whitespace could be omitted, but that results in slower execution ;-)
     return self::tokenizeOnRegex($string, '/[\s\n\r]*([^\s\n\r]+)/u');
   }
   
-  protected static function tokenizeOnWords($string) {
+  /**
+   * Tokenize a string on words
+   *
+   * @param string $string string to be tokenized
+   * @return string[] tokens
+   */
+  public static function tokenizeOnWords($string) {
     return self::tokenizeOnRegex($string, '/([\w]+)/u');
   }
   
-  protected static function tokenizeOnRegex($string, $pattern)
+  /**
+   * Tokenize a string with a given regex
+   *
+   * @param string $string string to be tokenized
+   * @param string $pattern regex. The token must be captured in the first subgroup.
+   * @return string[] tokens
+   */
+  public static function tokenizeOnRegex($string, $pattern)
   {
     // Fastest way to get both tokens and their offsets, but not easy to understand.
     preg_match_all($pattern, $string, $matches, PREG_OFFSET_CAPTURE);
