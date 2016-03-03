@@ -105,7 +105,7 @@ class TokenizedAttributedString extends AttributedString
    */
   public function setTokenRangeAttribute($from, $to, $attribute, $state = true) {
     $fromOffset = $this->tokenOffsets[$from];
-    $toOffset = $this->tokenOffsets[$to] + mb_strlen($this->tokens[$to] -  1, "utf-8");
+    $toOffset = $this->tokenOffsets[$to] + mb_strlen($this->tokens[$to], "utf-8") - 1;
     
     return $this->setRange($fromOffset, $toOffset, $attribute, $state);
   }
