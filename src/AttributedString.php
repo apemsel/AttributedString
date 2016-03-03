@@ -208,6 +208,12 @@ class AttributedString implements \Countable
   
   /**
    * Return an array of substrings that have a given attribute
+   *
+   * @param string $attribute name of the attribute
+   * @param int $pos offset
+   * @param bool $state the state to look for (default is true)
+   * @param bool $strict perform strict comparison during search
+   * @return string[] array of strings with given attribute
    */
   public function substrings($attribute, $offset = 0, $state = true, $strict = true)
   {
@@ -221,6 +227,21 @@ class AttributedString implements \Countable
     }
     
     return $substrings;
+  }
+  
+  /**
+   * Return all parts of the string that have a given attribute as new string
+   *
+   * @param string $attribute name of the attribute
+   * @param int $pos offset
+   * @param bool $state the state to look for (default is true)
+   * @param bool $strict perform strict comparison during search
+   * @param string $glue glue that is inserted between the parts, default is nothing ("")
+   * @return string combined filtered string
+   */
+  public function filter($attribute, $offset = 0, $state = true, $strict = true, $glue = "")
+  {
+    return implode($glue, $this->substrings($attribute, $offset, $state, $strict));
   }
   
   /**

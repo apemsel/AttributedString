@@ -85,9 +85,15 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $as = new AttributedString("foo bar baz zab rab oof");
     $as->setLength(4, 3, "bold");
     $as->setLength(8, 3, "bold");
-    $as->substrings("bold");
-
     $this->assertEquals(["bar", "baz"], $as->substrings("bold"));
+  }
+  
+  public function testFilter() {
+    $as = new AttributedString("foo bar baz zab rab oof");
+    $as->setLength(4, 3, "bold");
+    $as->setLength(8, 3, "bold");
+    $this->assertEquals("barbaz", $as->filter("bold"));
+    $this->assertEquals("bar,baz", $as->filter("bold", 0, true, true, ","));
   }
   
   public function testAttributesAt() {
