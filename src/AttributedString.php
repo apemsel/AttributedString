@@ -175,7 +175,7 @@ class AttributedString implements \Countable
     $a = $this->attributes[$attribute];
 
     if ($offset) {
-      $a = array_slice($a, $offset, $this->length, true);
+      $a = array_slice($a, $offset, NULL, true);
     }
     
     $pos = array_search($state, $a, $strict);
@@ -185,7 +185,7 @@ class AttributedString implements \Countable
         return false;
       }
       
-      $a = array_slice($a, $pos);
+      $a = array_slice($a, $pos - $offset);
       $length = array_search(!$state, $a, $strict);
       $length = $length ? $length : $this->length - $pos;
 
@@ -204,6 +204,23 @@ class AttributedString implements \Countable
    */
   public function is($attribute, $pos) {
     return (isset($this->attributes[$attribute][$pos]) and $this->attributes[$attribute][$pos]);
+  }
+  
+  /**
+   * Return an array of substrings that have a given attribute
+   */
+  public function substrings($attribute, $offset = 0, $state = true, $strict = true)
+  {
+    $substrings = [];
+    while (false !== $pl = $this->searchAttribute($attribute, $offset, true, $state, $strict))
+    {
+      //var_dump($pl);
+      $substring = mb_substr($this->string, $pl[0], $pl[1], "UTF-8");
+      $substrings[] = $substring;
+      $offset = $pl[0] + $pl[1];
+    }
+    
+    return $substrings;
   }
   
   /**

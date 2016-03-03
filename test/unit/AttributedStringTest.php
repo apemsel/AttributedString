@@ -81,6 +81,15 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     
   }
   
+  public function testSubstrings() {
+    $as = new AttributedString("foo bar baz zab rab oof");
+    $as->setLength(4, 3, "bold");
+    $as->setLength(8, 3, "bold");
+    $as->substrings("bold");
+
+    $this->assertEquals(["bar", "baz"], $as->substrings("bold"));
+  }
+  
   public function testAttributesAt() {
     $as = new AttributedString("foo bar baz");
     $as->setLength(4, 3, "bold");
@@ -105,7 +114,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(false, $as->searchAttribute("underlined", 0, true));
   }
 
-  public function testCombineAttributes() {
+  public function testToHtml() {
     $as = new AttributedString("foo bar baz");
     $as->setLength(4, 3, "bold");
     
@@ -114,7 +123,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals("foo <span class=\"prefix-bold\">bar</span> baz", $as->toHtml("span", "prefix-"));
   }
   
-  public function testToHtml() {
+  public function testCombineAttributes() {
     $as = new AttributedString("foo bar baz");
     $as->setLength(4, 3, "bold");
     $as->setLength(0, 5, "underlined");
