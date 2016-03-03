@@ -90,7 +90,7 @@ class TokenizedAttributedString extends AttributedString
   public function setTokenAttribute($i, $attribute, $state = true) {
     $token = $this->tokens[$i];
     $offset = $this->tokenOffsets[$i];
-    $length = strlen($token);
+    $length = mb_strlen($token, "utf-8");
     
     return $this->setLength($offset, $length, $attribute, $state);
   }
@@ -105,7 +105,7 @@ class TokenizedAttributedString extends AttributedString
    */
   public function setTokenRangeAttribute($from, $to, $attribute, $state = true) {
     $fromOffset = $this->tokenOffsets[$from];
-    $toOffset = $this->tokenOffsets[$to] + strlen($this->tokens[$to]);
+    $toOffset = $this->tokenOffsets[$to] + mb_strlen($this->tokens[$to], "utf-8");
     
     return $this->setRange($fromOffset, $toOffset, $attribute, $state);
   }
@@ -148,7 +148,7 @@ class TokenizedAttributedString extends AttributedString
    * Tokenize a string on whitespace
    *
    * @param string $string string to be tokenized
-   * @return string[] tokens
+   * @return array array of two arrays, with tokens at index 0 and their offsets at index 1
    */
   public static function tokenizeOnWhitespace($string) {
     // Matches pontential whitespace in front of the token and the token itself.
@@ -160,7 +160,7 @@ class TokenizedAttributedString extends AttributedString
    * Tokenize a string on words
    *
    * @param string $string string to be tokenized
-   * @return string[] tokens
+   * @return array array of two arrays, with tokens at index 0 and their offsets at index 1
    */
   public static function tokenizeOnWords($string) {
     return self::tokenizeOnRegex($string, '/([\w]+)/u');
@@ -171,7 +171,7 @@ class TokenizedAttributedString extends AttributedString
    *
    * @param string $string string to be tokenized
    * @param string $pattern regex. The token must be captured in the first subgroup.
-   * @return string[] tokens
+   * @return array array of two arrays, with tokens at index 0 and their offsets at index 1
    */
   public static function tokenizeOnRegex($string, $pattern)
   {
