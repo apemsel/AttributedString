@@ -133,6 +133,13 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $as->setLength(0, 7, "a");
     $as->setLength(4, 7, "b");
     $this->assertEquals('<t class="a">foo <t class="b">bar</t></t><t class="b"> baz</t>', $as->toHtml("t"));
+
+    // Create span inside span
+    $as = new AttributedString("foo bar baz");
+    $as->setLength(0, 11, "a");
+    $as->setLength(4, 3, "b");
+    $this->assertEquals('<t class="a">foo <t class="b">bar</t> baz</t>', $as->toHtml("t"));
+
   }
   
   public function testCombineAttributes() {
