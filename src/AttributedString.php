@@ -382,6 +382,21 @@ class AttributedString implements \Countable
   }
   
   /**
+   * Convert attribute map to a visual string representation (e.g. for debugging)
+   *
+   * @param string $attribute name of the attribute
+   * @param string $true char to use for true state of attribute
+   * @param string $false char to use for false state of attribute
+   */
+  public function attributeToString($attribute, $true = "-", $false = " ") {
+    $map = $this->attributes[$attribute];
+    
+    return implode("", array_map(function($v) use ($true, $false) {
+      return $v ? $true : $false;
+    }, $map));
+  }
+  
+  /**
    * Enable and fill cache for byte to char offset conversion
    *
    * May improve performance if setPattern is used extensively
