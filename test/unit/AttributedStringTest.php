@@ -158,6 +158,14 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $as->combineAttributes("non-op", "underlined", "bold", "non-op");
   }
   
+  public function testAttributeToString() {
+    $as = new AttributedString("foo bar baz");
+    $as->setLength(4, 3, "bold");
+    
+    $this->assertEquals("    ---    ", $as->attributeToString("bold"));
+    $this->assertEquals("OOOOXXXOOOO", $as->attributeToString("bold", "X", "O"));
+  }
+  
   public function testCount() {
     $as = new AttributedString("foo bar baz");
     
