@@ -124,7 +124,7 @@
 
 				<b>Author:</b>
 				Adrian Pemsel <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a><br>
-			<b>Located at</b> <a href="source-class-apemsel.AttributedString.AttributedString.html#4-438" title="Go to source code">AttributedString.php</a>
+			<b>Located at</b> <a href="source-class-apemsel.AttributedString.AttributedString.html#4-464" title="Go to source code">AttributedString.php</a>
 		<br>
 	</div>
 
@@ -694,7 +694,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toHtml">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#265-314" title="Go to source code">toHtml</a>( <span>string <var>$tag</var> = <span class="php-quote">&quot;span&quot;</span></span>, <span>string <var>$classPrefix</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#265-325" title="Go to source code">toHtml</a>( <span>string <var>$tag</var> = <span class="php-quote">&quot;span&quot;</span></span>, <span>string <var>$classPrefix</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
 
 			<div class="description short">
 				<p>Convert to HTML, using a given class to mark attribute spans</p>
@@ -717,10 +717,6 @@
 						string<br>HTML
 					</div>
 
-					<h4>Throws</h4>
-					<div class="list">
-						Exception<br>if the AttributedString cannot be converted to HTML due to improper nesting
-					</div>
 
 
 
@@ -738,7 +734,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_combineAttributes">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#316-371" title="Go to source code">combineAttributes</a>( <span>string <var>$op</var></span>, <span>string <var>$attribute1</var></span>, <span>string <var>$attribute2</var> = <span class="php-keyword1">false</span></span>, <span>string <var>$to</var> = <span class="php-keyword1">false</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#327-382" title="Go to source code">combineAttributes</a>( <span>string <var>$op</var></span>, <span>string <var>$attribute1</var></span>, <span>string <var>$attribute2</var> = <span class="php-keyword1">false</span></span>, <span>string <var>$to</var> = <span class="php-keyword1">false</span></span> )</code>
 
 			<div class="description short">
 				<p>Combine attributes with the given boolean operation</p>
@@ -771,6 +767,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="attributeToString" id="_attributeToString">
+
+			<td class="attributes"><code>
+				 public 
+				
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_attributeToString">#</a>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#384-397" title="Go to source code">attributeToString</a>( <span>string <var>$attribute</var></span>, <span>string <var>$true</var> = <span class="php-quote">&quot;-&quot;</span></span>, <span>string <var>$false</var> = <span class="php-quote">&quot; &quot;</span></span> )</code>
+
+			<div class="description short">
+				<p>Convert attribute map to a visual string representation (e.g. for debugging)</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Convert attribute map to a visual string representation (e.g. for debugging)</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd>name of the attribute</dd>
+						<dt><var>$true</var></dt>
+						<dd>char to use for true state of attribute</dd>
+						<dt><var>$false</var></dt>
+						<dd>char to use for false state of attribute</dd>
+					</dl></div>
+
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="enablebyteToCharCache" id="_enablebyteToCharCache">
 
 			<td class="attributes"><code>
@@ -782,7 +816,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enablebyteToCharCache">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#373-389" title="Go to source code">enablebyteToCharCache</a>( )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#399-415" title="Go to source code">enablebyteToCharCache</a>( )</code>
 
 			<div class="description short">
 				<p>Enable and fill cache for byte to char offset conversion</p>
@@ -813,7 +847,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_byteToCharOffset">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#391-395" title="Go to source code">byteToCharOffset</a>( <span> <var>$boff</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#417-421" title="Go to source code">byteToCharOffset</a>( <span> <var>$boff</var></span> )</code>
 
 			<div class="description short">
 				
@@ -842,7 +876,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_charToByteOffset">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#397-402" title="Go to source code">charToByteOffset</a>( <span> <var>$char</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#423-428" title="Go to source code">charToByteOffset</a>( <span> <var>$char</var></span> )</code>
 
 			<div class="description short">
 				
@@ -871,7 +905,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_byteToCharOffsetString">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#404-415" title="Go to source code">byteToCharOffsetString</a>( <span> <var>$string</var></span>, <span> <var>$boff</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#430-441" title="Go to source code">byteToCharOffsetString</a>( <span> <var>$string</var></span>, <span> <var>$boff</var></span> )</code>
 
 			<div class="description short">
 				
@@ -900,7 +934,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_utf8CharLen">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#417-428" title="Go to source code">utf8CharLen</a>( <span> <var>$byte</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#443-454" title="Go to source code">utf8CharLen</a>( <span> <var>$byte</var></span> )</code>
 
 			<div class="description short">
 				
@@ -929,7 +963,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_count">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#430-437" title="Go to source code">count</a>( )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#456-463" title="Go to source code">count</a>( )</code>
 
 			<div class="description short">
 				<p>Return string length (number of UTF-8 chars, not strlen())</p>
