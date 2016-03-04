@@ -268,7 +268,6 @@ class AttributedString implements \Countable
    * @param string $tag HTML tag to use for the spans (defaults is "<span>")
    * @param string $classPrefix Optional prefix used to convert the attribute names to class names
    * @return string HTML
-   * @throws Exception if the AttributedString cannot be converted to HTML due to improper nesting
    */
   public function toHtml($tag = "span", $classPrefix = "") {
     foreach($this->attributes as $attribute => $map) $state[$attribute] = false;
@@ -295,11 +294,23 @@ class AttributedString implements \Countable
           }
           else
           {
-            if ($attribute != array_pop($stack))
+            // Close attribute span. If the top of the stack does not equal the attribute to be closed
+            // close, pop and stash it. This happens when span a ends in span b.
+            $stashed = [];
+            while($open = array_pop($stack))
             {
-              throw new \Exception("Attributes are not properly nested for HTML conversion");
+              $html .= "</$tag>";
+              if ($attribute == $open) {
+                break;
+              }
+              $stashed[] = $open;
             }
-            $html .= "</$tag>";
+            
+            // Now repopen the stashed spans and put them back on the stack.
+            foreach($stashed as $a) {
+              $stack[] = $a;
+              $html .= "<$tag class=\"$classPrefix$a\">";
+            }
           }
         }
       }
