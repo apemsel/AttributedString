@@ -11,7 +11,7 @@ namespace apemsel\AttributedString;
 class AttributedString implements \Countable, \ArrayAccess
 {
   protected $string;
-  protected $attributes;
+  protected $attributes = [];
   protected $length;
   protected $byteToChar;
   

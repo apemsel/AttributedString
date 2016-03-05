@@ -31,7 +31,7 @@ class MutableAttributedStringTest extends PHPUnit_Framework_TestCase
 
     $as->setLength(0, 11, "bold");
     $as->delete(4, 3);
-    $this->assertEquals("föö baz", $as);
+    $this->assertEquals("föö  baz", (string) $as);
     $this->assertEquals(true, $as->is("bold", 0), "start should still be bold");
     $this->assertEquals(true, $as->is("bold", 6), "end should still be bold");
 
@@ -48,9 +48,20 @@ class MutableAttributedStringTest extends PHPUnit_Framework_TestCase
     $as = new MutableAttributedString("foo bar baz");
 
     $as->setLength(0, 11, "bold");
-    $as->delete(8, 4);
+    $as->delete(7, 4);
     $this->assertEquals("foo bar", $as);
     $this->assertEquals(true, $as->is("bold", 0), "start should still be bold");
     $this->assertEquals(true, $as->is("bold", 6), "end should still be bold");
+  }
+  
+  public function testArrayAccess() {
+    $as = new MutableAttributedString("fóò bar bäz");
+    
+    $as[1] = "ö";
+    $this->assertEquals("ö", $as[1]);
+    $this->assertEquals("föò bar bäz", (string) $as);
+    
+    unset($as[1]);
+    $this->assertEquals("fò bar bäz", (string) $as);
   }
 }

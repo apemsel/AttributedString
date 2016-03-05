@@ -51,8 +51,8 @@ class MutableAttributedString extends AttributedString
    */
   public function delete($pos, $length) {
     $leftPart = "";
-    if ($pos > 0) {
-      $leftPart = mb_substr($this->string, 0, $pos - 1, "utf-8");
+    if ($pos >= 0) {
+      $leftPart = mb_substr($this->string, 0, $pos, "utf-8");
     }
     
     $rightPart = "";
@@ -112,5 +112,25 @@ class MutableAttributedString extends AttributedString
     array_splice($smatches[0], $start, $length, $rmatches[0]);
     
     return join($smatches[0]);
+  }
+  
+  // Modified ArrayAccess interface
+  
+  /**
+   * Replace char at given offset
+   *
+   * @param int $offset offset
+   */
+  public function offsetSet($offset, $value) {
+    $this->string = self::mb_substr_replace($this->string, $value, $offset, mb_strlen($value, "utf-8"));
+  }
+  
+  /**
+   * Unset char at given offset
+   *
+   * @param int $offset offset
+   */
+  public function offsetUnset($offset) {
+    $this->delete($offset, 1);
   }
 }
