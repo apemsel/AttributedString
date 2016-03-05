@@ -4,11 +4,11 @@ use apemsel\AttributedString\AttributedString;
 class AttributedStringTest extends PHPUnit_Framework_TestCase
 {
   public function testConstructAndToString() {
-    $as = new AttributedString("foo");
-    $this->assertEquals("foo", $as);
+    $as = new AttributedString("fóò");
+    $this->assertEquals("fóò", $as);
     
     $as2 = new AttributedString($as);
-    $this->assertEquals("foo", $as2);
+    $this->assertEquals("fóò", $as2);
     
     $this->setExpectedException('InvalidArgumentException');
     $as = new AttributedString(1);
@@ -16,7 +16,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testBasicAttributes() {
-    $as = new AttributedString("foo");
+    $as = new AttributedString("fóò");
     $as->createAttribute("attribute");
     
     $this->assertEquals(true, $as->hasAttribute("attribute"));
@@ -27,7 +27,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testSetRangeAndIs() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setRange(4, 6, "bold");
     $this->assertEquals(true, $as->is("bold", 5));
     $this->assertEquals(false, $as->is("bold", 3));
@@ -35,7 +35,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testSetLengthAndIs() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setLength(4, 3, "bold");
     $this->assertEquals(true, $as->is("bold", 5));
     $this->assertEquals(false, $as->is("bold", 3));
@@ -43,23 +43,23 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testSetPatternAndIs() {
-    $as = new AttributedString("äöü foo bar baz");
-    $as->setPattern("/b[a-z]{2,2}/", "bold"); // set bar and baz to bold
+    $as = new AttributedString("äöü fóò bar bäz");
+    $as->setPattern("/b[a-z]{2,2}/", "bold"); // set bar and bäz to bold
     $this->assertEquals(true, $as->is("bold", 9));
     $this->assertEquals(false, $as->is("bold", 7));
     $this->assertEquals(false, $as->is("bold", 11));
 
     // try again with byte2Char cache
-    $as = new AttributedString("äöü foo bar baz");
+    $as = new AttributedString("äöü fóò bar bäz");
     $as->enableByteToCharCache();
-    $as->setPattern("/b[a-z]{2,2}/", "bold"); // set bar and baz to bold
+    $as->setPattern("/b[a-z]{2,2}/", "bold"); // set bar and bäz to bold
     $this->assertEquals(true, $as->is("bold", 9));
     $this->assertEquals(false, $as->is("bold", 7));
     $this->assertEquals(false, $as->is("bold", 11));
   }
   
   public function testSetSubstring() {
-    $as = new AttributedString("foo bar baz bar");
+    $as = new AttributedString("fóò bar bäz bar");
     $as->setSubstring("bar", "bold"); // all instances of bar
     $this->assertEquals(true, $as->is("bold", 5));
     $this->assertEquals(false, $as->is("bold", 3));
@@ -72,7 +72,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(false, $as->is("underlined", 7));
     $this->assertEquals(false, $as->is("underlined", 12));
     
-    $as = new AttributedString("foo BaR baz bar");
+    $as = new AttributedString("fóò BaR bäz bar");
     $as->setSubstring("BAR", "bold", true, false); // case independet
     $this->assertEquals(true, $as->is("bold", 5));
     $this->assertEquals(false, $as->is("bold", 3));
@@ -82,22 +82,22 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testSubstrings() {
-    $as = new AttributedString("foo bar baz zab rab oof");
+    $as = new AttributedString("fóò bar bäz zab rab oof");
     $as->setLength(4, 3, "bold");
     $as->setLength(8, 3, "bold");
-    $this->assertEquals(["bar", "baz"], $as->substrings("bold"));
+    $this->assertEquals(["bar", "bäz"], $as->substrings("bold"));
   }
   
   public function testFilter() {
-    $as = new AttributedString("foo bar baz zab rab oof");
+    $as = new AttributedString("fóò bar bäz zab rab oof");
     $as->setLength(4, 3, "bold");
     $as->setLength(8, 3, "bold");
-    $this->assertEquals("barbaz", $as->filter("bold"));
-    $this->assertEquals("bar,baz", $as->filter("bold", 0, true, true, ","));
+    $this->assertEquals("barbäz", $as->filter("bold"));
+    $this->assertEquals("bar,bäz", $as->filter("bold", 0, true, true, ","));
   }
   
   public function testAttributesAt() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setLength(4, 3, "bold");
     $as->setLength(4, 7, "underlined");
 
@@ -107,7 +107,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testSearchAttribute() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setLength(4, 3, "bold");
 
     $this->assertEquals(4, $as->searchAttribute("bold"));
@@ -121,29 +121,29 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
 
   public function testToHtml() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setLength(4, 3, "bold");
     
-    $this->assertEquals("foo <span class=\"bold\">bar</span> baz", $as->toHtml());
-    $this->assertEquals("foo <div class=\"bold\">bar</div> baz", $as->toHtml("div"));
-    $this->assertEquals("foo <span class=\"prefix-bold\">bar</span> baz", $as->toHtml("span", "prefix-"));
+    $this->assertEquals("fóò <span class=\"bold\">bar</span> bäz", $as->toHtml());
+    $this->assertEquals("fóò <div class=\"bold\">bar</div> bäz", $as->toHtml("div"));
+    $this->assertEquals("fóò <span class=\"prefix-bold\">bar</span> bäz", $as->toHtml("span", "prefix-"));
     
     // Create overlapping attribute spans
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setLength(0, 7, "a");
     $as->setLength(4, 7, "b");
-    $this->assertEquals('<t class="a">foo <t class="b">bar</t></t><t class="b"> baz</t>', $as->toHtml("t"));
+    $this->assertEquals('<t class="a">fóò <t class="b">bar</t></t><t class="b"> bäz</t>', $as->toHtml("t"));
 
     // Create span inside span
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setLength(0, 11, "a");
     $as->setLength(4, 3, "b");
-    $this->assertEquals('<t class="a">foo <t class="b">bar</t> baz</t>', $as->toHtml("t"));
+    $this->assertEquals('<t class="a">fóò <t class="b">bar</t> bäz</t>', $as->toHtml("t"));
 
   }
   
   public function testCombineAttributes() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setLength(4, 3, "bold");
     $as->setLength(0, 5, "underlined");
     $as->combineAttributes("or", "bold", "underlined", "either");
@@ -159,7 +159,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testAttributeToString() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     $as->setLength(4, 3, "bold");
     
     $this->assertEquals("    ---    ", $as->attributeToString("bold"));
@@ -167,7 +167,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
   }
   
   public function testCount() {
-    $as = new AttributedString("foo bar baz");
+    $as = new AttributedString("fóò bar bäz");
     
     $this->assertEquals(11, count($as));
   }
