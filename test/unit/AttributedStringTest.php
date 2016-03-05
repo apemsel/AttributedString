@@ -171,4 +171,13 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     
     $this->assertEquals(11, count($as));
   }
+  
+  public function testArrayAccess() {
+    $as = new AttributedString("fóò bar bäz");
+    
+    $this->assertEquals("f", $as[0]);
+    $this->assertEquals("ò", $as[2]);
+    $this->setExpectedException('InvalidArgumentException');
+    $as[0] = "z";
+  }
 }
