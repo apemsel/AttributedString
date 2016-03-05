@@ -8,7 +8,7 @@ namespace apemsel\AttributedString;
  *
  * @author Adrian Pemsel <apemsel@gmail.com>
  */
-class AttributedString implements \Countable
+class AttributedString implements \Countable, \ArrayAccess
 {
   protected $string;
   protected $attributes;
@@ -453,6 +453,8 @@ class AttributedString implements \Countable
     }
   }
   
+  // Countable interface
+  
   /**
    * Return string length (number of UTF-8 chars, not strlen())
    *
@@ -460,5 +462,47 @@ class AttributedString implements \Countable
    */
   public function count() {
     return $this->length;
+  }
+  
+  // ArrayAccess interface
+  
+  /**
+   * Check if the given offset exists in the string
+   *
+   * @param int $offset offset
+   * @return bool does the offset exist
+   */
+  public function offsetExists($offset) {
+    return $offest < $this->length;
+  }
+  
+  /**
+   * Get char at given offset
+   *
+   * Note: Since AttributedString is using UTF-8, the returned char may be longer than 1 byte!
+   *
+   * @param int $offset offset
+   * @return string character
+   */
+  public function offsetGet($offset) {
+    return mb_substr($this->string, $offset, 1, "utf-8");
+  }
+  
+  /**
+   * Not implemented since AttributedString is immutable
+   *
+   * @throws InvalidArgumentException always
+   */
+  public function offsetSet($offset, $value) {
+    throw new \InvalidArgumentException("AttributedString is immutable");
+  }
+  
+  /**
+   * Not implemented since AttributedString is immutable
+   *
+   * @throws InvalidArgumentException always
+   */
+  public function offsetUnset($offset) {
+    throw new \InvalidArgumentException("AttributedString is immutable");
   }
 }
