@@ -185,4 +185,28 @@ class TokenizedAttributedString extends AttributedString
     
     return [$tokens, $tokenOffsets];
   }
+  
+  // Modified ArrayAccess interface
+  
+  /**
+   * Check if the token at the given index exists
+   *
+   * @param int $i token index
+   * @return bool does the offset exist
+   */
+  public function offsetExists($i) {
+    return $i < $this->getTokenCount();
+  }
+  
+  /**
+   * Get token at given index
+   *
+   * Note: TokenizedAttributedString uses the ArrayAccess interface to access tokens, not chars!
+   *
+   * @param int $i token index
+   * @return string token
+   */
+  public function offsetGet($i) {
+    return $this->tokens[$i];
+  }
 }

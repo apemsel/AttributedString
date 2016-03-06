@@ -76,4 +76,11 @@ class TokenizedAttributedStringTest extends PHPUnit_Framework_TestCase
     $as->lowercaseTokens();
     $this->assertEquals(["foo", "bar", "baz"], $as->getTokens());
   }
+  
+  public function testArrayAccess() {
+    $as = new TokenizedAttributedString("foo bar baz");
+    $this->assertEquals("bar", $as[1]);
+    $this->assertEquals(true, isset($as[1]));
+    $this->assertEquals(false, isset($as[3]));
+  }
 }
