@@ -163,7 +163,7 @@ class TokenizedAttributedString extends AttributedString
    * @return array array of two arrays, with tokens at index 0 and their offsets at index 1
    */
   public static function tokenizeOnWords($string) {
-    return self::tokenizeOnRegex($string, '/(\p{L}+)/u');
+    return self::tokenizeOnRegex($string, '/([\p{L}\p{S}\p{N}]+)/u');
   }
   
   /**
