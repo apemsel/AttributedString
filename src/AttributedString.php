@@ -401,7 +401,7 @@ class AttributedString implements \Countable, \ArrayAccess
    *
    * May improve performance if setPattern is used extensively
    */
-  public function enablebyteToCharCache() {
+  public function enableByteToCharCache() {
     $this->byteToChar = [];
     $char = 0;
     for ($i = 0; $i < strlen($this->string); ) {

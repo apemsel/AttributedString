@@ -19,6 +19,8 @@ class TokenizedAttributedString extends AttributedString
    * @param string $tokenizer Tokenizer to use, either "whitespace", "word" or a custom regex
    */
   public function __construct($string, $tokenizer = "whitespace") {
+    parent::__construct($string);
+    
     $tokenizerFunction = "tokenizeOn".ucfirst($tokenizer);
 
     if ($tokenizer[0] == "/") {
@@ -30,7 +32,11 @@ class TokenizedAttributedString extends AttributedString
       list($this->tokens, $this->tokenOffsets) = self::$tokenizerFunction($string);
     }
     
-    parent::__construct($string);
+    // convert byte to char offsets
+    $this->enableByteToCharCache();
+    $this->tokenOffsets = array_map(function($o) {
+      return $this->byteToCharOffset($o);
+    }, $this->tokenOffsets);
   }
   
   /**
@@ -148,7 +154,7 @@ class TokenizedAttributedString extends AttributedString
    * Tokenize a string on whitespace
    *
    * @param string $string string to be tokenized
-   * @return array array of two arrays, with tokens at index 0 and their offsets at index 1
+   * @return array array of two arrays, with tokens at index 0 and their byte offsets at index 1
    */
   public static function tokenizeOnWhitespace($string) {
     // Matches pontential whitespace in front of the token and the token itself.
@@ -160,7 +166,7 @@ class TokenizedAttributedString extends AttributedString
    * Tokenize a string on words
    *
    * @param string $string string to be tokenized
-   * @return array array of two arrays, with tokens at index 0 and their offsets at index 1
+   * @return array array of two arrays, with tokens at index 0 and their byte offsets at index 1
    */
   public static function tokenizeOnWords($string) {
     return self::tokenizeOnRegex($string, '/([\p{L}\p{S}\p{N}]+)/u');
@@ -171,7 +177,7 @@ class TokenizedAttributedString extends AttributedString
    *
    * @param string $string string to be tokenized
    * @param string $pattern regex. The token must be captured in the first subgroup.
-   * @return array array of two arrays, with tokens at index 0 and their offsets at index 1
+   * @return array array of two arrays, with tokens at index 0 and their byte offsets at index 1
    */
   public static function tokenizeOnRegex($string, $pattern)
   {
