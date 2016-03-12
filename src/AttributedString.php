@@ -54,7 +54,7 @@ class AttributedString implements \Countable, \ArrayAccess
       throw new \InvalidArgumentException();
     }
     
-    $this->attributes[$attribute] = array_fill(0, $this->length, false);
+    $this->attributes[$attribute] = new Bitmap($this->length);
   }
   
   /**
@@ -99,7 +99,9 @@ class AttributedString implements \Countable, \ArrayAccess
     }
 
     // Set attribute state for given range
-    $this->attributes[$attribute] = array_replace($this->attributes[$attribute], array_fill($from, $to-$from+1, $state));
+    for($i = $from; $i <= $to; $i++) {
+      $this->attributes[$attribute][$i] = $state;
+    }
   }
   
   /**
@@ -173,26 +175,20 @@ class AttributedString implements \Countable, \ArrayAccess
     }
     
     $a = $this->attributes[$attribute];
-
-    if ($offset) {
-      $a = array_slice($a, $offset, NULL, true);
-    }
-    
-    $pos = array_search($state, $a, $strict);
-    
-    if ($returnLength) {
-      if (false === $pos) {
-        return false;
+    for ($i = $offset; $i < $this->length; $i++) {
+      if (($strict and $a[$i] === $state) or (!$strict and $a[$i] == $state)) {
+        if ($returnLength) {
+          $length = $this->searchAttribute($attribute, $i, false, !$state, $strict);
+          $length = $length ? $length - $i : $this->length - $i;
+          
+          return [$i, $length];
+        } else {
+          return $i;
+        }
       }
-      
-      $a = array_slice($a, $pos - $offset);
-      $length = array_search(!$state, $a, $strict);
-      $length = $length ? $length : $this->length - $pos;
-
-      return [$pos, $length];
-    } else {
-      return $pos;
     }
+    
+    return false;
   }
   
   /**
@@ -389,11 +385,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $false char to use for false state of attribute
    */
   public function attributeToString($attribute, $true = "-", $false = " ") {
-    $map = $this->attributes[$attribute];
-    
-    return implode("", array_map(function($v) use ($true, $false) {
-      return $v ? $true : $false;
-    }, $map));
+    return $this->attributes[$attribute]->toString($true, $false);
   }
   
   /**
