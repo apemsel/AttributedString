@@ -99,9 +99,7 @@ class AttributedString implements \Countable, \ArrayAccess
     }
 
     // Set attribute state for given range
-    for($i = $from; $i <= $to; $i++) {
-      $this->attributes[$attribute][$i] = $state;
-    }
+    $this->attributes[$attribute]->setRange($from, $to, $state);
   }
   
   /**
@@ -174,21 +172,7 @@ class AttributedString implements \Countable, \ArrayAccess
       return false;
     }
     
-    $a = $this->attributes[$attribute];
-    for ($i = $offset; $i < $this->length; $i++) {
-      if (($strict and $a[$i] === $state) or (!$strict and $a[$i] == $state)) {
-        if ($returnLength) {
-          $length = $this->searchAttribute($attribute, $i, false, !$state, $strict);
-          $length = $length ? $length - $i : $this->length - $i;
-          
-          return [$i, $length];
-        } else {
-          return $i;
-        }
-      }
-    }
-    
-    return false;
+    return $this->attributes[$attribute]->search($offset, $returnLength, $state, $strict);
   }
   
   /**
@@ -342,8 +326,8 @@ class AttributedString implements \Countable, \ArrayAccess
       throw new \InvalidArgumentException("Attribute does not exist");
     }
     
-    if (!isset($this->attributes[$to])) {
-      $this->attributes[$to] = []; // No need to init because array is created below
+    if (!$this->hasAttribute($to)) {
+      $this->createAttribute($to);
     }
     
     // Switch outside the loops for speed
