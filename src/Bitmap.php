@@ -1,14 +1,14 @@
 <?php
 namespace apemsel\AttributedString;
 
-class Bitmap implements \ArrayAccess
+class Bitmap implements \ArrayAccess, \Countable
 {
   protected $bitmap;
   protected $length;
   
   public function __construct($length) {
     $this->length = $length;
-    $this->bitmap = str_repeat("\0", ceil($this->length / 8));
+    $this->bitmap = str_repeat(chr(0), ceil($this->length / 8));
   }
   
   public function __toString() {
@@ -57,5 +57,16 @@ class Bitmap implements \ArrayAccess
   
   public function offsetUnset($offset) {
     throw new \RuntimeException("Bitmap does not support offsetUnset");
+  }
+  
+  // Countable interface
+  
+  /**
+   * Return bitmap length
+   *
+   * @return int bitmap length
+   */
+  public function count() {
+    return $this->length;
   }
 }

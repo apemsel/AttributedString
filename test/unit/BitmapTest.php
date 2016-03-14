@@ -17,5 +17,8 @@ class BitmapTest extends PHPUnit_Framework_TestCase
     unset($b[0]);
   }
   
-  
+  public function testCountable() {
+    $b = new Bitmap(10);
+    $this->assertEquals(10, count($b));
+  }
 }
