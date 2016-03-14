@@ -1,7 +1,7 @@
 <?php
 namespace apemsel\AttributedString;
 
-class Bitmap implements \ArrayAccess, \Countable
+class Bitmap implements Attribute
 {
   protected $bitmap;
   protected $length;
@@ -24,6 +24,46 @@ class Bitmap implements \ArrayAccess, \Countable
     }
     
     return $string;
+  }
+  
+  /**
+   * Set given range to a state
+   *
+   * @param int $from start offset
+   * @param int $to end offset
+   * @param bool $state set state to true (default) or false
+   */
+  public function setRange($from, $to, $state = true) {
+    // Set attribute state for given range
+    for($i = $from; $i <= $to; $i++) {
+      $this->offsetSet($i, $state);
+    }
+  }
+  
+  /**
+   * Search inside bitmap for ranges with the given state
+   *
+   * @param int $offset start offset
+   * @param bool $returnLength if true (default is false), return an array with position and length of the found range
+   * @param bool $state the state to look for (default is true)
+   * @param bool $strict perform strict comparison during search
+   * @return int|int[] either position or position and lenght in an array
+   */
+  public function search($offset = 0, $returnLength = false, $state = true, $strict = true) {
+    for ($i = $offset; $i < $this->length; $i++) {
+      if (($strict and $this->offsetGet($i) === $state) or (!$strict and $this->offsetGet($i) == $state)) {
+        if ($returnLength) {
+          $length = $this->search($i, false, !$state, $strict);
+          $length = $length ? $length - $i : $this->length - $i;
+          
+          return [$i, $length];
+        } else {
+          return $i;
+        }
+      }
+    }
+    
+    return false;
   }
   
   // ArrayAccess interface
