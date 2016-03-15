@@ -19,7 +19,7 @@ class AttributedString implements \Countable, \ArrayAccess
   /**
    * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
    */
-  public function __construct($string, $attributeClass = "apemsel\AttributedString\Bitmap") {
+  public function __construct($string, $attributeClass = "apemsel\AttributedString\BooleanArray") {
     if (is_string($string)) {
       $this->string = $string;
       $this->length = mb_strlen($string, "utf-8");
@@ -373,6 +373,16 @@ class AttributedString implements \Countable, \ArrayAccess
    */
   public function attributeToString($attribute, $true = "-", $false = " ") {
     return $this->attributes[$attribute]->toString($true, $false);
+  }
+  
+  /**
+   * Return attribute object
+   *
+   * @param string $attribute name of the attribute
+   * @return object an object implementing the attribute interface
+   */
+  public function getAttribute($attribute) {
+    return $this->attributes[$attribute];
   }
   
   /**
