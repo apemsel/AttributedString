@@ -65,10 +65,12 @@ class BooleanArray implements Attribute
   }
   
   public function insert($pos, $length, $state) {
+    $this->length += $length;
     array_splice($this->attribute, $pos, 0, array_fill(0, $length, $state));
   }
   
   public function delete($pos, $length) {
+    $this->length -= $length;
     array_splice($this->attribute, $pos, $length);
   }
   
