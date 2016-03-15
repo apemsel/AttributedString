@@ -8,7 +8,7 @@ class BooleanArray implements Attribute
   
   public function __construct($length) {
     $this->length = $length;
-    $this->attribute = [];
+    $this->attribute = array_fill(0, $length, false);
   }
   
   public function __toString() {
@@ -64,10 +64,18 @@ class BooleanArray implements Attribute
     }
   }
   
+  public function insert($pos, $length, $state) {
+    array_splice($this->attribute, $pos, 0, array_fill(0, $length, $state));
+  }
+  
+  public function delete($pos, $length) {
+    array_splice($this->attribute, $pos, $length);
+  }
+  
   // ArrayAccess interface
   
   public function offsetExists($offset) {
-    return $offest < $this->length;
+    return $offset < $this->length;
   }
   
   public function offsetGet($offset)
