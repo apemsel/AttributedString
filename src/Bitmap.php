@@ -1,20 +1,42 @@
 <?php
 namespace apemsel\AttributedString;
 
+/**
+ * Bitmap
+ *
+ * A memory-efficient Attribute implementation using a bitmask stored in a string.
+ *
+ * @author Adrian Pemsel <apemsel@gmail.com>
+ */
 class Bitmap implements Attribute
 {
   protected $bitmap;
   protected $length;
   
+  /**
+   * @param int length of bitmask
+   */
   public function __construct($length) {
     $this->length = $length;
     $this->bitmap = str_repeat(chr(0), ceil($this->length / 8));
   }
   
+  /**
+   * Returns the bitmask as a visual string
+   *
+   * @return string bitmask as visual string of 0s and 1s
+   */
   public function __toString() {
     return $this->toString();
   }
   
+  /**
+   * Returns the bitmask as a visual string with custom chars for 0s and 1s
+   *
+   * @param string $true representation of 1s
+   * @param string $true representation of 0s
+   * @return string bitmask as visual string of 0s and 1s
+   */
   public function toString($true = "1", $false = "0") {
     $string = str_repeat($false, $this->length);
     for ($offset = 0; $offset < $this->length; $offset++) {
@@ -68,10 +90,22 @@ class Bitmap implements Attribute
   
   // ArrayAccess interface
   
+  /**
+   * Check if the given offset exists in the bitmap
+   *
+   * @param int $offset offset
+   * @return bool does the offset exist
+   */
   public function offsetExists($offset) {
     return is_int($offset) && $offset >= 0 && $offset < $this->length;
   }
   
+  /**
+   * Get bit at given offset
+   *
+   * @param int $offset offset
+   * @return bool bit at given offset
+   */
   public function offsetGet($offset)
 	{
 		if ($this->offsetExists($offset)) {
@@ -81,6 +115,12 @@ class Bitmap implements Attribute
 		}
 	}
   
+  /**
+   * Set bit at given offset
+   *
+   * @param int $offset offset
+   * @param bool $value bit at given offset
+   */
   public function offsetSet($offset, $value)
 	{
 		if ($this->offsetExists($offset)) {
@@ -95,6 +135,11 @@ class Bitmap implements Attribute
 		}
 	}
   
+  /**
+   * Unset bit at given offset - not implemented
+   *
+   * @throws RuntimeException always
+   */
   public function offsetUnset($offset) {
     throw new \RuntimeException("Bitmap does not support offsetUnset");
   }
