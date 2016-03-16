@@ -66,10 +66,17 @@
 			<h3>Classes</h3>
 			<ul>
 				<li class="active"><a href="class-apemsel.AttributedString.AttributedString.html">AttributedString</a></li>
+				<li><a href="class-apemsel.AttributedString.Bitmap.html">Bitmap</a></li>
+				<li><a href="class-apemsel.AttributedString.BooleanArray.html">BooleanArray</a></li>
 				<li><a href="class-apemsel.AttributedString.MutableAttributedString.html">MutableAttributedString</a></li>
 				<li><a href="class-apemsel.AttributedString.TokenizedAttributedString.html">TokenizedAttributedString</a></li>
 			</ul>
 
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-apemsel.AttributedString.Attribute.html">Attribute</a></li>
+				<li><a href="class-apemsel.AttributedString.MutableAttribute.html">MutableAttribute</a></li>
+			</ul>
 
 
 
@@ -126,7 +133,7 @@
 
 				<b>Author:</b>
 				Adrian Pemsel <a href="&#x6d;&#x61;&#x69;&#x6c;&#116;&#111;&#58;&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;">&#97;&#112;&#x65;&#x6d;&#x73;&#x65;&#x6c;&#64;&#103;&#109;&#97;&#105;&#x6c;&#x2e;&#x63;&#x6f;&#x6d;</a><br>
-			<b>Located at</b> <a href="source-class-apemsel.AttributedString.AttributedString.html#4-508" title="Go to source code">AttributedString.php</a>
+			<b>Located at</b> <a href="source-class-apemsel.AttributedString.AttributedString.html#4-503" title="Go to source code">AttributedString.php</a>
 		<br>
 	</div>
 
@@ -146,7 +153,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#18-35" title="Go to source code">__construct</a>( <span>string|<code><a href="class-apemsel.AttributedString.AttributedString.html">apemsel\AttributedString\AttributedString</a></code> <var>$string</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#19-39" title="Go to source code">__construct</a>( <span>string|<code><a href="class-apemsel.AttributedString.AttributedString.html">apemsel\AttributedString\AttributedString</a></code> <var>$string</var></span>, <span>string <var>$attributeClass</var> = <span class="php-quote">&quot;apemsel\AttributedString\BooleanArray&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -160,6 +167,8 @@
 					<div class="list"><dl>
 						<dt><var>$string</var></dt>
 						<dd>Either a simple string or another AttributedString to init the AttributedString</dd>
+						<dt><var>$attributeClass</var></dt>
+						<dd>Class to use for attributes</dd>
 					</dl></div>
 
 
@@ -180,7 +189,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#___toString">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#37-44" title="Go to source code">__toString</a>( )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#41-48" title="Go to source code">__toString</a>( )</code>
 
 			<div class="description short">
 				<p>Returns the native string</p>
@@ -213,7 +222,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_createAttribute">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#46-58" title="Go to source code">createAttribute</a>( <span>string <var>$attribute</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#50-62" title="Go to source code">createAttribute</a>( <span>string <var>$attribute</var></span> )</code>
 
 			<div class="description short">
 				<p>Creates a new attribute layer</p>
@@ -251,7 +260,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_hasAttribute">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#60-68" title="Go to source code">hasAttribute</a>( <span>string <var>$attribute</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#64-72" title="Go to source code">hasAttribute</a>( <span>string <var>$attribute</var></span> )</code>
 
 			<div class="description short">
 				<p>Check if the given attribute exists</p>
@@ -289,16 +298,21 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_deleteAttribute">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#70-74" title="Go to source code">deleteAttribute</a>( <span> <var>$attribute</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#74-83" title="Go to source code">deleteAttribute</a>( <span>string <var>$attribute</var></span> )</code>
 
 			<div class="description short">
-				
+				<p>Delete an attribute</p>
 			</div>
 
 			<div class="description detailed hidden">
-				
+				<p>Delete an attribute</p>
 
 
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd>The name of the attribute to delete</dd>
+					</dl></div>
 
 
 
@@ -318,7 +332,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setRange">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#76-103" title="Go to source code">setRange</a>( <span>integer <var>$from</var></span>, <span>integer <var>$to</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#85-112" title="Go to source code">setRange</a>( <span>integer <var>$from</var></span>, <span>integer <var>$to</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				<p>Set given range of the string to an attribute and state</p>
@@ -358,7 +372,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setLength">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#105-115" title="Go to source code">setLength</a>( <span>integer <var>$from</var></span>, <span>integer <var>$length</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#114-124" title="Go to source code">setLength</a>( <span>integer <var>$from</var></span>, <span>integer <var>$length</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				<p>Set given length of the string to an attribute and state</p>
@@ -398,7 +412,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setPattern">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#117-135" title="Go to source code">setPattern</a>( <span>string <var>$pattern</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#126-144" title="Go to source code">setPattern</a>( <span>string <var>$pattern</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				<p>Set parts of the string matching a given regex to an attribute and state</p>
@@ -440,7 +454,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_setSubstring">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#137-158" title="Go to source code">setSubstring</a>( <span>string <var>$substring</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$all</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$matchCase</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#146-167" title="Go to source code">setSubstring</a>( <span>string <var>$substring</var></span>, <span>string <var>$attribute</var></span>, <span>boolean <var>$all</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$matchCase</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				<p>Set given substring to an attribute and state</p>
@@ -482,7 +496,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_searchAttribute">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#160-196" title="Go to source code">searchAttribute</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$offset</var> = <span class="php-num">0</span></span>, <span>boolean <var>$returnLength</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$strict</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#169-185" title="Go to source code">searchAttribute</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$offset</var> = <span class="php-num">0</span></span>, <span>boolean <var>$returnLength</var> = <span class="php-keyword1">false</span></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$strict</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				<p>Search inside the string for ranges with the given attribute</p>
@@ -528,7 +542,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_is">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#198-207" title="Go to source code">is</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$pos</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#187-196" title="Go to source code">is</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$pos</var></span> )</code>
 
 			<div class="description short">
 				<p>Check for given attribute at a offset</p>
@@ -568,7 +582,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_substrings">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#209-230" title="Go to source code">substrings</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$offset</var> = <span class="php-num">0</span></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$strict</var> = <span class="php-keyword1">true</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#198-219" title="Go to source code">substrings</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$offset</var> = <span class="php-num">0</span></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$strict</var> = <span class="php-keyword1">true</span></span> )</code>
 
 			<div class="description short">
 				<p>Return an array of substrings that have a given attribute</p>
@@ -612,7 +626,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_filter">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#232-245" title="Go to source code">filter</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$offset</var> = <span class="php-num">0</span></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$strict</var> = <span class="php-keyword1">true</span></span>, <span>string <var>$glue</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#221-234" title="Go to source code">filter</a>( <span>string <var>$attribute</var></span>, <span>integer <var>$offset</var> = <span class="php-num">0</span></span>, <span>boolean <var>$state</var> = <span class="php-keyword1">true</span></span>, <span>boolean <var>$strict</var> = <span class="php-keyword1">true</span></span>, <span>string <var>$glue</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
 
 			<div class="description short">
 				<p>Return all parts of the string that have a given attribute as new string</p>
@@ -658,7 +672,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attributesAt">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#247-263" title="Go to source code">attributesAt</a>( <span>integer <var>$pos</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#236-252" title="Go to source code">attributesAt</a>( <span>integer <var>$pos</var></span> )</code>
 
 			<div class="description short">
 				<p>Return all attributes at a given offset</p>
@@ -696,7 +710,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_toHtml">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#265-325" title="Go to source code">toHtml</a>( <span>string <var>$tag</var> = <span class="php-quote">&quot;span&quot;</span></span>, <span>string <var>$classPrefix</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#254-314" title="Go to source code">toHtml</a>( <span>string <var>$tag</var> = <span class="php-quote">&quot;span&quot;</span></span>, <span>string <var>$classPrefix</var> = <span class="php-quote">&quot;&quot;</span></span> )</code>
 
 			<div class="description short">
 				<p>Convert to HTML, using a given class to mark attribute spans</p>
@@ -736,7 +750,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_combineAttributes">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#327-382" title="Go to source code">combineAttributes</a>( <span>string <var>$op</var></span>, <span>string <var>$attribute1</var></span>, <span>string <var>$attribute2</var> = <span class="php-keyword1">false</span></span>, <span>string <var>$to</var> = <span class="php-keyword1">false</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#316-371" title="Go to source code">combineAttributes</a>( <span>string <var>$op</var></span>, <span>string <var>$attribute1</var></span>, <span>string <var>$attribute2</var> = <span class="php-keyword1">false</span></span>, <span>string <var>$to</var> = <span class="php-keyword1">false</span></span> )</code>
 
 			<div class="description short">
 				<p>Combine attributes with the given boolean operation</p>
@@ -780,7 +794,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_attributeToString">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#384-397" title="Go to source code">attributeToString</a>( <span>string <var>$attribute</var></span>, <span>string <var>$true</var> = <span class="php-quote">&quot;-&quot;</span></span>, <span>string <var>$false</var> = <span class="php-quote">&quot; &quot;</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#373-382" title="Go to source code">attributeToString</a>( <span>string <var>$attribute</var></span>, <span>string <var>$true</var> = <span class="php-quote">&quot;-&quot;</span></span>, <span>string <var>$false</var> = <span class="php-quote">&quot; &quot;</span></span> )</code>
 
 			<div class="description short">
 				<p>Convert attribute map to a visual string representation (e.g. for debugging)</p>
@@ -807,6 +821,44 @@
 			</div>
 			</div></td>
 		</tr>
+		<tr data-order="getAttribute" id="_getAttribute">
+
+			<td class="attributes"><code>
+				 public 
+				object
+				
+				</code>
+			</td>
+
+			<td class="name"><div>
+			<a class="anchor" href="#_getAttribute">#</a>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#384-392" title="Go to source code">getAttribute</a>( <span>string <var>$attribute</var></span> )</code>
+
+			<div class="description short">
+				<p>Return attribute instance</p>
+			</div>
+
+			<div class="description detailed hidden">
+				<p>Return attribute instance</p>
+
+
+					<h4>Parameters</h4>
+					<div class="list"><dl>
+						<dt><var>$attribute</var></dt>
+						<dd>name of the attribute</dd>
+					</dl></div>
+
+					<h4>Returns</h4>
+					<div class="list">
+						object<br>an object implementing the attribute interface
+					</div>
+
+
+
+
+			</div>
+			</div></td>
+		</tr>
 		<tr data-order="enableByteToCharCache" id="_enableByteToCharCache">
 
 			<td class="attributes"><code>
@@ -818,7 +870,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_enableByteToCharCache">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#399-415" title="Go to source code">enableByteToCharCache</a>( )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#394-410" title="Go to source code">enableByteToCharCache</a>( )</code>
 
 			<div class="description short">
 				<p>Enable and fill cache for byte to char offset conversion</p>
@@ -849,7 +901,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_byteToCharOffset">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#417-421" title="Go to source code">byteToCharOffset</a>( <span> <var>$boff</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#412-416" title="Go to source code">byteToCharOffset</a>( <span> <var>$boff</var></span> )</code>
 
 			<div class="description short">
 				
@@ -878,7 +930,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_charToByteOffset">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#423-428" title="Go to source code">charToByteOffset</a>( <span> <var>$char</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#418-423" title="Go to source code">charToByteOffset</a>( <span> <var>$char</var></span> )</code>
 
 			<div class="description short">
 				
@@ -907,7 +959,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_byteToCharOffsetString">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#430-441" title="Go to source code">byteToCharOffsetString</a>( <span> <var>$string</var></span>, <span> <var>$boff</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#425-436" title="Go to source code">byteToCharOffsetString</a>( <span> <var>$string</var></span>, <span> <var>$boff</var></span> )</code>
 
 			<div class="description short">
 				
@@ -936,7 +988,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_utf8CharLen">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#443-454" title="Go to source code">utf8CharLen</a>( <span> <var>$byte</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#438-449" title="Go to source code">utf8CharLen</a>( <span> <var>$byte</var></span> )</code>
 
 			<div class="description short">
 				
@@ -965,7 +1017,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_count">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#458-465" title="Go to source code">count</a>( )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#453-460" title="Go to source code">count</a>( )</code>
 
 			<div class="description short">
 				<p>Return string length (number of UTF-8 chars, not strlen())</p>
@@ -1000,7 +1052,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetExists">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#469-477" title="Go to source code">offsetExists</a>( <span>integer <var>$offset</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#464-472" title="Go to source code">offsetExists</a>( <span>integer <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>Check if the given offset exists in the string</p>
@@ -1040,7 +1092,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetGet">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#479-489" title="Go to source code">offsetGet</a>( <span>integer <var>$offset</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#474-484" title="Go to source code">offsetGet</a>( <span>integer <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>Get char at given offset</p>
@@ -1082,7 +1134,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetSet">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#491-498" title="Go to source code">offsetSet</a>( <span> <var>$offset</var></span>, <span> <var>$value</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#486-493" title="Go to source code">offsetSet</a>( <span> <var>$offset</var></span>, <span> <var>$value</var></span> )</code>
 
 			<div class="description short">
 				<p>Not implemented since AttributedString is immutable</p>
@@ -1096,7 +1148,7 @@
 
 					<h4>Throws</h4>
 					<div class="list">
-						InvalidArgumentException<br>always
+						RuntimeException<br>always
 					</div>
 
 
@@ -1117,7 +1169,7 @@
 
 			<td class="name"><div>
 			<a class="anchor" href="#_offsetUnset">#</a>
-			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#500-507" title="Go to source code">offsetUnset</a>( <span> <var>$offset</var></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.AttributedString.html#495-502" title="Go to source code">offsetUnset</a>( <span> <var>$offset</var></span> )</code>
 
 			<div class="description short">
 				<p>Not implemented since AttributedString is immutable</p>
@@ -1131,7 +1183,7 @@
 
 					<h4>Throws</h4>
 					<div class="list">
-						InvalidArgumentException<br>always
+						RuntimeException<br>always
 					</div>
 
 
@@ -1253,6 +1305,31 @@
 			<td class="value">
 				<div>
 					<a href="#$byteToChar" class="anchor">#</a>
+					<code></code>
+				</div>
+			</td>
+		</tr>
+		<tr data-order="attributeClass" id="$attributeClass">
+			<td class="attributes"><code>
+				protected  
+				
+			</code></td>
+
+			<td class="name">
+					<a href="source-class-apemsel.AttributedString.AttributedString.html#17" title="Go to source code"><var>$attributeClass</var></a>
+
+				<div class="description short">
+					
+				</div>
+
+				<div class="description detailed hidden">
+					
+
+				</div>
+			</td>
+			<td class="value">
+				<div>
+					<a href="#$attributeClass" class="anchor">#</a>
 					<code></code>
 				</div>
 			</td>
