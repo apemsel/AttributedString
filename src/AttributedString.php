@@ -18,6 +18,7 @@ class AttributedString implements \Countable, \ArrayAccess
   
   /**
    * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
+   * @param string $attributeClass Class to use for attributes
    */
   public function __construct($string, $attributeClass = "apemsel\AttributedString\BooleanArray") {
     if (is_string($string)) {
@@ -70,6 +71,11 @@ class AttributedString implements \Countable, \ArrayAccess
     return isset($this->attributes[$attribute]);
   }
   
+  /**
+   * Delete an attribute
+   *
+   * @param string $attribute The name of the attribute to delete
+   */
   public function deleteAttribute($attribute) {
     if (isset($this->attributes[$attribute])) {
       unset($this->attributes[$attribute]);
@@ -376,7 +382,7 @@ class AttributedString implements \Countable, \ArrayAccess
   }
   
   /**
-   * Return attribute object
+   * Return attribute instance
    *
    * @param string $attribute name of the attribute
    * @return object an object implementing the attribute interface
@@ -480,18 +486,18 @@ class AttributedString implements \Countable, \ArrayAccess
   /**
    * Not implemented since AttributedString is immutable
    *
-   * @throws InvalidArgumentException always
+   * @throws RuntimeException always
    */
   public function offsetSet($offset, $value) {
-    throw new \InvalidArgumentException("AttributedString is immutable");
+    throw new \RuntimeException("AttributedString is immutable");
   }
   
   /**
    * Not implemented since AttributedString is immutable
    *
-   * @throws InvalidArgumentException always
+   * @throws RuntimeException always
    */
   public function offsetUnset($offset) {
-    throw new \InvalidArgumentException("AttributedString is immutable");
+    throw new \RuntimeException("AttributedString is immutable");
   }
 }
