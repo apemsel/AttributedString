@@ -14,11 +14,13 @@ class AttributedString implements \Countable, \ArrayAccess
   protected $attributes = [];
   protected $length;
   protected $byteToChar;
+  protected $attributeClass;
   
   /**
    * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
+   * @param string $attributeClass Class to use for attributes
    */
-  public function __construct($string) {
+  public function __construct($string, $attributeClass = "apemsel\AttributedString\BooleanArray") {
     if (is_string($string)) {
       $this->string = $string;
       $this->length = mb_strlen($string, "utf-8");
@@ -32,6 +34,8 @@ class AttributedString implements \Countable, \ArrayAccess
     else {
       throw new \InvalidArgumentException();
     }
+    
+    $this->attributeClass = $attributeClass;
   }
   
   /**
@@ -54,7 +58,7 @@ class AttributedString implements \Countable, \ArrayAccess
       throw new \InvalidArgumentException();
     }
     
-    $this->attributes[$attribute] = array_fill(0, $this->length, false);
+    $this->attributes[$attribute] = new $this->attributeClass($this->length);
   }
   
   /**
@@ -67,6 +71,11 @@ class AttributedString implements \Countable, \ArrayAccess
     return isset($this->attributes[$attribute]);
   }
   
+  /**
+   * Delete an attribute
+   *
+   * @param string $attribute The name of the attribute to delete
+   */
   public function deleteAttribute($attribute) {
     if (isset($this->attributes[$attribute])) {
       unset($this->attributes[$attribute]);
@@ -99,7 +108,7 @@ class AttributedString implements \Countable, \ArrayAccess
     }
 
     // Set attribute state for given range
-    $this->attributes[$attribute] = array_replace($this->attributes[$attribute], array_fill($from, $to-$from+1, $state));
+    $this->attributes[$attribute]->setRange($from, $to, $state);
   }
   
   /**
@@ -172,27 +181,7 @@ class AttributedString implements \Countable, \ArrayAccess
       return false;
     }
     
-    $a = $this->attributes[$attribute];
-
-    if ($offset) {
-      $a = array_slice($a, $offset, NULL, true);
-    }
-    
-    $pos = array_search($state, $a, $strict);
-    
-    if ($returnLength) {
-      if (false === $pos) {
-        return false;
-      }
-      
-      $a = array_slice($a, $pos - $offset);
-      $length = array_search(!$state, $a, $strict);
-      $length = $length ? $length : $this->length - $pos;
-
-      return [$pos, $length];
-    } else {
-      return $pos;
-    }
+    return $this->attributes[$attribute]->search($offset, $returnLength, $state, $strict);
   }
   
   /**
@@ -346,8 +335,8 @@ class AttributedString implements \Countable, \ArrayAccess
       throw new \InvalidArgumentException("Attribute does not exist");
     }
     
-    if (!isset($this->attributes[$to])) {
-      $this->attributes[$to] = []; // No need to init because array is created below
+    if (!$this->hasAttribute($to)) {
+      $this->createAttribute($to);
     }
     
     // Switch outside the loops for speed
@@ -389,11 +378,17 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $false char to use for false state of attribute
    */
   public function attributeToString($attribute, $true = "-", $false = " ") {
-    $map = $this->attributes[$attribute];
-    
-    return implode("", array_map(function($v) use ($true, $false) {
-      return $v ? $true : $false;
-    }, $map));
+    return $this->attributes[$attribute]->toString($true, $false);
+  }
+  
+  /**
+   * Return attribute instance
+   *
+   * @param string $attribute name of the attribute
+   * @return object an object implementing the attribute interface
+   */
+  public function getAttribute($attribute) {
+    return $this->attributes[$attribute];
   }
   
   /**
@@ -491,18 +486,18 @@ class AttributedString implements \Countable, \ArrayAccess
   /**
    * Not implemented since AttributedString is immutable
    *
-   * @throws InvalidArgumentException always
+   * @throws RuntimeException always
    */
   public function offsetSet($offset, $value) {
-    throw new \InvalidArgumentException("AttributedString is immutable");
+    throw new \RuntimeException("AttributedString is immutable");
   }
   
   /**
    * Not implemented since AttributedString is immutable
    *
-   * @throws InvalidArgumentException always
+   * @throws RuntimeException always
    */
   public function offsetUnset($offset) {
-    throw new \InvalidArgumentException("AttributedString is immutable");
+    throw new \RuntimeException("AttributedString is immutable");
   }
 }

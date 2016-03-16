@@ -66,10 +66,17 @@
 			<h3>Classes</h3>
 			<ul>
 				<li><a href="class-apemsel.AttributedString.AttributedString.html">AttributedString</a></li>
+				<li><a href="class-apemsel.AttributedString.Bitmap.html">Bitmap</a></li>
+				<li><a href="class-apemsel.AttributedString.BooleanArray.html">BooleanArray</a></li>
 				<li><a href="class-apemsel.AttributedString.MutableAttributedString.html">MutableAttributedString</a></li>
 				<li class="active"><a href="class-apemsel.AttributedString.TokenizedAttributedString.html">TokenizedAttributedString</a></li>
 			</ul>
 
+			<h3>Interfaces</h3>
+			<ul>
+				<li><a href="class-apemsel.AttributedString.Attribute.html">Attribute</a></li>
+				<li><a href="class-apemsel.AttributedString.MutableAttribute.html">MutableAttribute</a></li>
+			</ul>
 
 
 
@@ -147,7 +154,7 @@ The original string is preserved.</p>
 
 			<td class="name"><div>
 			<a class="anchor" href="#___construct">#</a>
-			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#17-40" title="Go to source code">__construct</a>( <span>string|<code><a href="class-apemsel.AttributedString.AttributedString.html">apemsel\AttributedString\AttributedString</a></code> <var>$string</var></span>, <span>string <var>$tokenizer</var> = <span class="php-quote">&quot;whitespace&quot;</span></span> )</code>
+			<code><a href="source-class-apemsel.AttributedString.TokenizedAttributedString.html#17-40" title="Go to source code">__construct</a>( <span>string|<code><a href="class-apemsel.AttributedString.AttributedString.html">apemsel\AttributedString\AttributedString</a></code> <var>$string</var></span>, <span>string <var>$tokenizer</var> = <span class="php-quote">&quot;whitespace&quot;</span></span>, <span> <var>$attributeClass</var> = <span class="php-quote">&quot;apemsel\AttributedString\BooleanArray&quot;</span></span> )</code>
 
 			<div class="description short">
 				
@@ -163,6 +170,8 @@ The original string is preserved.</p>
 						<dd>String to work on</dd>
 						<dt><var>$tokenizer</var></dt>
 						<dd>Tokenizer to use, either "whitespace", "word" or a custom regex</dd>
+						<dt><var>$attributeClass</var></dt>
+						<dd></dd>
 					</dl></div>
 
 
@@ -748,6 +757,7 @@ The original string is preserved.</p>
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#_deleteAttribute">deleteAttribute()</a></code>, 
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#_enableByteToCharCache">enableByteToCharCache()</a></code>, 
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#_filter">filter()</a></code>, 
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#_getAttribute">getAttribute()</a></code>, 
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#_hasAttribute">hasAttribute()</a></code>, 
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#_is">is()</a></code>, 
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#_offsetSet">offsetSet()</a></code>, 
@@ -831,6 +841,7 @@ The original string is preserved.</p>
 		<div class="panel panel-default">
             <div class="panel-heading"><h3>Properties inherited from <a href="class-apemsel.AttributedString.AttributedString.html#properties">apemsel\AttributedString\AttributedString</a></h3></div>
 			<p class="elementList">
+				<code><a href="class-apemsel.AttributedString.AttributedString.html#$attributeClass"><var>$attributeClass</var></a></code>, 
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#$attributes"><var>$attributes</var></a></code>, 
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#$byteToChar"><var>$byteToChar</var></a></code>, 
 				<code><a href="class-apemsel.AttributedString.AttributedString.html#$length"><var>$length</var></a></code>, 

@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="robots" content="noindex">
 
-	<title>Page not found</title>
+	<title>File Attribute.php</title>
 
 	<link rel="stylesheet" href="resources/bootstrap.min.css?973e37a8502921d56bc02bb55321f45b072b6f71">
 	<link rel="stylesheet" href="resources/style.css?49f43d3208c5d7e33fa16d36107a345bf11cc00d">
@@ -89,12 +89,16 @@
 
 <div id="right">
 	<div id="rightInner">
-<div id="content">
-	<h1>Page not found</h1>
-	<p>The requested page could not be found.</p>
-	<p>You have probably clicked on a link that is outdated and points to a page that does not exist any more or you have made an typing error in the address.</p>
-	<p>To continue please try to find requested page in the menu, or use search field on the top.</p>
-</div>
+<pre id="source"><code><span id="1" class="l"><a href="#1"> 1 </a><span class="xlang">&lt;?php</span>
+</span><span id="2" class="l"><a href="#2"> 2 </a><span class="php-keyword1">namespace</span> apemsel\AttributedString;
+</span><span id="3" class="l"><a href="#3"> 3 </a>
+</span><span id="4" class="l"><a href="#4"> 4 </a><span class="php-keyword1">interface</span> Attribute <span class="php-keyword1">extends</span> \ArrayAccess, \Countable
+</span><span id="5" class="l"><a href="#5"> 5 </a>{
+</span><span id="6" class="l"><a href="#6"> 6 </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> setRange(<span class="php-var">$from</span>, <span class="php-var">$to</span>, <span class="php-var">$state</span> = <span class="php-keyword1">true</span>);
+</span><span id="7" class="l"><a href="#7"> 7 </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> toString(<span class="php-var">$true</span> = <span class="php-quote">&quot;1&quot;</span>, <span class="php-var">$false</span> = <span class="php-quote">&quot;0&quot;</span>);
+</span><span id="8" class="l"><a href="#8"> 8 </a>  <span class="php-keyword1">public</span> <span class="php-keyword1">function</span> search(<span class="php-var">$offset</span> = <span class="php-num">0</span>, <span class="php-var">$returnLength</span> = <span class="php-keyword1">false</span>, <span class="php-var">$state</span> = <span class="php-keyword1">true</span>, <span class="php-var">$strict</span> = <span class="php-keyword1">true</span>);
+</span><span id="9" class="l"><a href="#9"> 9 </a>}
+</span><span id="10" class="l"><a href="#10">10 </a></span></code></pre>
 	</div>
 
 	<div id="footer">
@@ -102,6 +106,6 @@
 	</div>
 </div>
 <script src="resources/combined.js?d53569920534419a0f5d928b099926bfef3f6b7c"></script>
-<script src="elementlist.js"></script>
+<script src="elementlist.js?18f0cda9f23d306e3feebf819be402bd1e750e27"></script>
 </body>
 </html>

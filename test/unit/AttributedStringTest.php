@@ -177,7 +177,7 @@ class AttributedStringTest extends PHPUnit_Framework_TestCase
     
     $this->assertEquals("f", $as[0]);
     $this->assertEquals("ò", $as[2]);
-    $this->setExpectedException('InvalidArgumentException');
+    $this->setExpectedException('RuntimeException');
     $as[0] = "z";
   }
 }

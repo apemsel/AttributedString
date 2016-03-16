@@ -18,8 +18,8 @@ class TokenizedAttributedString extends AttributedString
    * @param string|AttributedString $string String to work on
    * @param string $tokenizer Tokenizer to use, either "whitespace", "word" or a custom regex
    */
-  public function __construct($string, $tokenizer = "whitespace") {
-    parent::__construct($string);
+  public function __construct($string, $tokenizer = "whitespace", $attributeClass = "apemsel\AttributedString\BooleanArray") {
+    parent::__construct($string, $attributeClass);
     
     $tokenizerFunction = "tokenizeOn".ucfirst($tokenizer);
 

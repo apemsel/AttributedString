@@ -11,6 +11,18 @@ namespace apemsel\AttributedString;
 class MutableAttributedString extends AttributedString
 {
   /**
+   * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
+   * @param string $attributeClass Class to use for attributes
+   */
+  public function __construct($string, $attributeClass = "apemsel\AttributedString\BooleanArray") {
+    if (!in_array("apemsel\AttributedString\MutableAttribute", class_implements($attributeClass))) {
+      throw new \InvalidArgumentException("MutableAttributedString can only be used with attributes implementing MutableAttribute");
+    }
+    
+    parent::__construct($string, $attributeClass);
+  }
+  
+  /**
    * Insert string at given offset
    *
    * @param int $pos offset
@@ -28,18 +40,18 @@ class MutableAttributedString extends AttributedString
     $this->length += $length;
     $this->byte2Char = []; // invalidate cache
     
-    foreach ($this->attributes as $attribute => &$map) {
+    foreach ($this->attributes as $name => $attribute) {
       // Check state of surrounding map to determine state of inserted part
       $state = false;
-      $maxPos = count($map) - 1;
-      $leftState = $map[min($maxPos, $pos)];
-      $rightState = $map[min($maxPos, $pos + 1)];
+      $maxPos = count($attribute) - 1;
+      $leftState = $attribute[min($maxPos, $pos)];
+      $rightState = $attribute[min($maxPos, $pos + 1)];
       
       if ($leftState == $rightState) {
         $state = $leftState;
       }
       
-      array_splice($map, $pos, 0, array_fill(0, $length, $state));
+      $attribute->insert($pos, $length, $state);
     }
   }
   
@@ -63,8 +75,8 @@ class MutableAttributedString extends AttributedString
     $this->string = $leftPart.$rightPart;
     $this->length -= $length;
     
-    foreach ($this->attributes as $attribute => &$map) {
-      array_splice($map, $pos, $length);
+    foreach ($this->attributes as $name => $attribute) {
+      $attribute->delete($pos, $length);
     }
   }
   
