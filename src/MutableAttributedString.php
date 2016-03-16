@@ -11,6 +11,18 @@ namespace apemsel\AttributedString;
 class MutableAttributedString extends AttributedString
 {
   /**
+   * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
+   * @param string $attributeClass Class to use for attributes
+   */
+  public function __construct($string, $attributeClass = "apemsel\AttributedString\BooleanArray") {
+    if (!in_array("apemsel\AttributedString\MutableAttribute", class_implements($attributeClass))) {
+      throw new \InvalidArgumentException("MutableAttributedString can only be used with attributes implementing MutableAttribute");
+    }
+    
+    parent::__construct($string, $attributeClass);
+  }
+  
+  /**
    * Insert string at given offset
    *
    * @param int $pos offset
