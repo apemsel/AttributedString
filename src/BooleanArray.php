@@ -1,20 +1,42 @@
 <?php
 namespace apemsel\AttributedString;
 
-class BooleanArray implements Attribute
+/**
+ * BooleanArray
+ *
+ * A time efficient Attribute implementation using a standard PHP array of booleans
+ *
+ * @author Adrian Pemsel <apemsel@gmail.com>
+ */
+class BooleanArray implements MutableAttribute
 {
   protected $attribute;
   protected $length;
   
+  /**
+   * @param int length of array
+   */
   public function __construct($length) {
     $this->length = $length;
     $this->attribute = array_fill(0, $length, false);
   }
   
+  /**
+   * Returns the array as a visual string
+   *
+   * @return string array as visual string of 0s and 1s
+   */
   public function __toString() {
     return $this->toString();
   }
   
+  /**
+   * Returns the array as a visual string with custom chars for 0s and 1s
+   *
+   * @param string $true representation of 1s
+   * @param string $true representation of 0s
+   * @return string array as visual string of the given representations
+   */
   public function toString($true = "1", $false = "0") {
     return implode("", array_map(function($v) use ($true, $false) {
       return $v ? $true : $false;
@@ -64,32 +86,70 @@ class BooleanArray implements Attribute
     }
   }
   
-  public function insert($pos, $length, $state) {
+  // MutableAttribute interface
+  
+  /**
+   * Insert a piece into the array at given offset with a given state and length
+   *
+   * @param int $offset offset
+   * @param int $length length of inserted piece
+   * @param bool $state state of inserted piece
+   */
+  public function insert($offset, $length, $state) {
     $this->length += $length;
-    array_splice($this->attribute, $pos, 0, array_fill(0, $length, $state));
+    array_splice($this->attribute, $offset, 0, array_fill(0, $length, $state));
   }
   
-  public function delete($pos, $length) {
+  /**
+   * Delete a piece of the array at given offset with a given length
+   *
+   * @param int $offset offset
+   * @param int $length length of inserted piece
+   */
+  public function delete($offset, $length) {
     $this->length -= $length;
-    array_splice($this->attribute, $pos, $length);
+    array_splice($this->attribute, $offset, $length);
   }
   
   // ArrayAccess interface
   
+  /**
+   * Check if the given offset exists in the array
+   *
+   * @param int $offset offset
+   * @return bool does the offset exist
+   */
   public function offsetExists($offset) {
     return $offset < $this->length;
   }
   
+  /**
+   * Get bool at given offset
+   *
+   * @param int $offset offset
+   * @return bool bit at given offset
+   */
   public function offsetGet($offset)
 	{
 		return $this->attribute[$offset];
 	}
   
+  /**
+   * Set bool at given offset
+   *
+   * @param int $offset offset
+   * @param bool $value bit at given offset
+   */
   public function offsetSet($offset, $value)
 	{
     $this->attribute[$offset] = $value;
 	}
   
+  /**
+   * Unset bit at given offset
+   *
+   * @param int $offset offset
+   */
   public function offsetUnset($offset) {
     unset($this->attribute[$offset]);
   }

@@ -4,7 +4,7 @@ namespace apemsel\AttributedString;
 /**
  * Bitmap
  *
- * A memory-efficient Attribute implementation using a bitmask stored in a string.
+ * A memory efficient Attribute implementation using a bitmask stored in a string.
  *
  * @author Adrian Pemsel <apemsel@gmail.com>
  */
@@ -35,7 +35,7 @@ class Bitmap implements Attribute
    *
    * @param string $true representation of 1s
    * @param string $true representation of 0s
-   * @return string bitmask as visual string of 0s and 1s
+   * @return string bitmask as visual string of the given representations
    */
   public function toString($true = "1", $false = "0") {
     $string = str_repeat($false, $this->length);
