@@ -14,72 +14,72 @@ class MutableAttributedString extends AttributedString
    * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
    * @param string $attributeClass Class to use for attributes
    */
-  public function __construct($string, $attributeClass = "apemsel\AttributedString\BooleanArray") {
+  public function __construct(string $string, string $attributeClass = "apemsel\AttributedString\BooleanArray") {
     if (!in_array("apemsel\AttributedString\MutableAttribute", class_implements($attributeClass))) {
       throw new \InvalidArgumentException("MutableAttributedString can only be used with attributes implementing MutableAttribute");
     }
-    
+
     parent::__construct($string, $attributeClass);
   }
-  
+
   /**
    * Insert string at given offset
    *
    * @param int $pos offset
    * @param string $string string to be inserted
    */
-  public function insert($pos, $string) {
+  public function insert(int $pos, string $string): void {
     $length = mb_strlen($string, "utf-8");
-    
+
     if ($pos == $this->length) { // append instead
       $this->string .= $string;
     } else { // insert at $pos
       $this->string = self::mb_substr_replace($this->string, $string, $pos, 0);
     }
-    
+
     $this->length += $length;
-    $this->byte2Char = []; // invalidate cache
-    
+    $this->byteToChar = []; // invalidate cache
+
     foreach ($this->attributes as $name => $attribute) {
       // Check state of surrounding map to determine state of inserted part
       $state = false;
       $maxPos = count($attribute) - 1;
       $leftState = $attribute[min($maxPos, $pos)];
       $rightState = $attribute[min($maxPos, $pos + 1)];
-      
+
       if ($leftState == $rightState) {
         $state = $leftState;
       }
-      
+
       $attribute->insert($pos, $length, $state);
     }
   }
-  
+
   /**
    * Delete substring of given offset and length
    *
    * @param int $pos offset
    * @param int $length length
    */
-  public function delete($pos, $length) {
+  public function delete(int $pos, int $length): void {
     $leftPart = "";
     if ($pos >= 0) {
       $leftPart = mb_substr($this->string, 0, $pos, "utf-8");
     }
-    
+
     $rightPart = "";
     if ($pos + $length < $this->length) {
       $rightPart = mb_substr($this->string, $pos + $length, NULL, "utf-8");
     }
-    
+
     $this->string = $leftPart.$rightPart;
     $this->length -= $length;
-    
+
     foreach ($this->attributes as $name => $attribute) {
       $attribute->delete($pos, $length);
     }
   }
-  
+
   /**
    * Missing mb_substr_replace() implementation
    *
@@ -90,8 +90,8 @@ class MutableAttributedString extends AttributedString
    * @param int $length length
    * @return string modified string
    */
-  protected static function mb_substr_replace($string, $replacement, $start, $length = NULL) {
-    
+  protected static function mb_substr_replace(string $string, string $replacement, int $start, ?int $length = NULL): string {
+
     if (is_array($string)) {
       $num = count($string);
       // $replacement
@@ -122,27 +122,27 @@ class MutableAttributedString extends AttributedString
     preg_match_all('/./us', (string)$replacement, $rmatches);
     if ($length === NULL) $length = mb_strlen($string, "utf-8");
     array_splice($smatches[0], $start, $length, $rmatches[0]);
-    
+
     return join($smatches[0]);
   }
-  
+
   // Modified ArrayAccess interface
-  
+
   /**
    * Replace char at given offset
    *
    * @param int $offset offset
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet(mixed $offset, mixed $value): void {
     $this->string = self::mb_substr_replace($this->string, $value, $offset, mb_strlen($value, "utf-8"));
   }
-  
+
   /**
    * Unset char at given offset
    *
    * @param int $offset offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset(mixed $offset): void {
     $this->delete($offset, 1);
   }
 }
