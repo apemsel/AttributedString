@@ -13,14 +13,14 @@ class TokenizedAttributedString extends AttributedString
 {
   protected $tokens;
   protected $tokenOffsets;
-  
+
   /**
    * @param string|AttributedString $string String to work on
    * @param string $tokenizer Tokenizer to use, either "whitespace", "word" or a custom regex
    */
-  public function __construct($string, $tokenizer = "whitespace", $attributeClass = "apemsel\AttributedString\BooleanArray") {
+  public function __construct(string $string, string $tokenizer = "whitespace", string $attributeClass = "apemsel\AttributedString\BooleanArray") {
     parent::__construct($string, $attributeClass);
-    
+
     $tokenizerFunction = "tokenizeOn".ucfirst($tokenizer);
 
     if ($tokenizer[0] == "/") {
@@ -31,38 +31,38 @@ class TokenizedAttributedString extends AttributedString
       }
       list($this->tokens, $this->tokenOffsets) = self::$tokenizerFunction($string);
     }
-    
+
     // convert byte to char offsets
     $this->enableByteToCharCache();
     $this->tokenOffsets = array_map(function($o) {
       return $this->byteToCharOffset($o);
     }, $this->tokenOffsets);
   }
-  
+
   /**
    * Return all tokens
    *
    * @return string[] tokens
    */
-  public function getTokens() {
+  public function getTokens(): array {
     return $this->tokens;
   }
-  
+
   /**
    * Return all tokens' offsets
    *
    * @return int[] offsets
    */
-  public function getTokenOffsets() {
+  public function getTokenOffsets(): array {
     return $this->tokenOffsets;
   }
-  
+
   /**
    * Return the number of tokens
    *
    * @return int count
    */
-  public function getTokenCount() {
+  public function getTokenCount(): int {
     return count($this->tokens);
   }
 
@@ -72,20 +72,20 @@ class TokenizedAttributedString extends AttributedString
    * @param int $i token index
    * @return string token
    */
-  public function getToken($i) {
+  public function getToken(int $i): string {
     return $this->tokens[$i];
   }
-  
+
   /**
    * Get indicated token offset
    *
    * @param int $i token index
    * @return int offset
    */
-  public function getTokenOffset($i) {
+  public function getTokenOffset(int $i): int {
     return $this->tokenOffsets[$i];
   }
-  
+
   /**
    * Set a token to a given attribute and state
    *
@@ -93,14 +93,14 @@ class TokenizedAttributedString extends AttributedString
    * @param string $attribute attribute name
    * @param bool $state attribute state
    */
-  public function setTokenAttribute($i, $attribute, $state = true) {
+  public function setTokenAttribute(int $i, string $attribute, bool $state = true): void {
     $token = $this->tokens[$i];
     $offset = $this->tokenOffsets[$i];
     $length = mb_strlen($token, "utf-8");
-    
-    return $this->setLength($offset, $length, $attribute, $state);
+
+    $this->setLength($offset, $length, $attribute, $state);
   }
-  
+
   /**
    * Set a range of tokens to a given attribute and state
    *
@@ -109,13 +109,13 @@ class TokenizedAttributedString extends AttributedString
    * @param string $attribute attribute name
    * @param bool $state attribute state
    */
-  public function setTokenRangeAttribute($from, $to, $attribute, $state = true) {
+  public function setTokenRangeAttribute(int $from, int $to, string $attribute, bool $state = true): void {
     $fromOffset = $this->tokenOffsets[$from];
     $toOffset = $this->tokenOffsets[$to] + mb_strlen($this->tokens[$to], "utf-8") - 1;
-    
-    return $this->setRange($fromOffset, $toOffset, $attribute, $state);
+
+    $this->setRange($fromOffset, $toOffset, $attribute, $state);
   }
-  
+
   /**
    * Set all tokens matching given dictionary to attribute and state
    *
@@ -123,55 +123,55 @@ class TokenizedAttributedString extends AttributedString
    * @param string $attribute attribute name
    * @param bool $state attribute state
    */
-  public function setTokenDictionaryAttribute($dictionary, $attribute, $state = true) {
+  public function setTokenDictionaryAttribute(array $dictionary, string $attribute, bool $state = true): void {
     foreach($this->tokens as $i => $token) {
       if (in_array($token, $dictionary)) {
         $this->setTokenAttribute($i, $attribute, $state);
       }
     }
   }
-  
+
   /**
    * Get all attribute of token at given index
    *
    * @param int token index
    * @return string[] attributes
    */
-  public function attributesAtToken($i) {
+  public function attributesAtToken(int $i): array {
     return $this->attributesAt($this->tokenOffsets[$i]);
   }
-  
+
   /**
    * Convert all tokens to lower case
    */
-  public function lowercaseTokens() {
+  public function lowercaseTokens(): void {
     $this->tokens = array_map(function($token) {
       return mb_strtolower($token, "utf-8");
     }, $this->tokens);
   }
-  
+
   /**
    * Tokenize a string on whitespace
    *
    * @param string $string string to be tokenized
    * @return array array of two arrays, with tokens at index 0 and their byte offsets at index 1
    */
-  public static function tokenizeOnWhitespace($string) {
+  public static function tokenizeOnWhitespace(string $string): array {
     // Matches pontential whitespace in front of the token and the token itself.
     // Matching the whitespace could be omitted, but that results in slower execution ;-)
     return self::tokenizeOnRegex($string, '/[\s\n\r]*([^\s\n\r]+)/u');
   }
-  
+
   /**
    * Tokenize a string on words
    *
    * @param string $string string to be tokenized
    * @return array array of two arrays, with tokens at index 0 and their byte offsets at index 1
    */
-  public static function tokenizeOnWords($string) {
+  public static function tokenizeOnWords(string $string): array {
     return self::tokenizeOnRegex($string, '/([\p{L}\p{S}\p{N}]+)/u');
   }
-  
+
   /**
    * Tokenize a string with a given regex
    *
@@ -179,7 +179,7 @@ class TokenizedAttributedString extends AttributedString
    * @param string $pattern regex. The token must be captured in the first subgroup.
    * @return array array of two arrays, with tokens at index 0 and their byte offsets at index 1
    */
-  public static function tokenizeOnRegex($string, $pattern)
+  public static function tokenizeOnRegex(string $string, string $pattern): array
   {
     // Fastest way to get both tokens and their offsets, but not easy to understand.
     preg_match_all($pattern, $string, $matches, PREG_OFFSET_CAPTURE);
@@ -188,22 +188,22 @@ class TokenizedAttributedString extends AttributedString
     // with their offset in column 1 and the matched token in column 0
     $tokens = array_column($matches[1], 0);
     $tokenOffsets = array_column($matches[1], 1);
-    
+
     return [$tokens, $tokenOffsets];
   }
-  
+
   // Modified ArrayAccess interface
-  
+
   /**
    * Check if the token at the given index exists
    *
    * @param int $i token index
    * @return bool does the offset exist
    */
-  public function offsetExists($i) {
+  public function offsetExists(mixed $i): bool {
     return $i < $this->getTokenCount();
   }
-  
+
   /**
    * Get token at given index
    *
@@ -212,7 +212,7 @@ class TokenizedAttributedString extends AttributedString
    * @param int $i token index
    * @return string token
    */
-  public function offsetGet($i) {
+  public function offsetGet(mixed $i): string {
     return $this->tokens[$i];
   }
 }
