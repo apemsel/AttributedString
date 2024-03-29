@@ -20,7 +20,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
    * @param string $attributeClass Class to use for attributes
    */
-  public function __construct(string $string, string $attributeClass = "apemsel\AttributedString\BooleanArray") {
+  public function __construct(string|AttributedString $string, string $attributeClass = "apemsel\AttributedString\BooleanArray") {
     if (is_string($string)) {
       $this->string = $string;
       $this->length = mb_strlen($string, "utf-8");
@@ -30,9 +30,6 @@ class AttributedString implements \Countable, \ArrayAccess
       $this->attributes = $string->attributes;
       $this->length = $string->length;
       $this->byteToChar = $string->byteToChar;
-    }
-    else {
-      throw new \InvalidArgumentException();
     }
 
     $this->attributeClass = $attributeClass;

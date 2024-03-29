@@ -12,24 +12,24 @@ class BooleanArray implements MutableAttribute
 {
   protected $attribute;
   protected $length;
-  
+
   /**
    * @param int length of array
    */
-  public function __construct($length) {
+  public function __construct(int $length) {
     $this->length = $length;
     $this->attribute = array_fill(0, $length, false);
   }
-  
+
   /**
    * Returns the array as a visual string
    *
    * @return string array as visual string of 0s and 1s
    */
-  public function __toString() {
+  public function __toString(): string {
     return $this->toString();
   }
-  
+
   /**
    * Returns the array as a visual string with custom chars for 0s and 1s
    *
@@ -37,12 +37,12 @@ class BooleanArray implements MutableAttribute
    * @param string $true representation of 0s
    * @return string array as visual string of the given representations
    */
-  public function toString($true = "1", $false = "0") {
+  public function toString(string $true = "1", string $false = "0"): string {
     return implode("", array_map(function($v) use ($true, $false) {
       return $v ? $true : $false;
     }, $this->attribute));
   }
-  
+
   /**
    * Set given range to a state
    *
@@ -50,11 +50,11 @@ class BooleanArray implements MutableAttribute
    * @param int $to end offset
    * @param bool $state set state to true (default) or false
    */
-  public function setRange($from, $to, $state = true) {
+  public function setRange(int $from, int $to, bool $state = true): void {
     // Set attribute state for given range
     $this->attribute = array_replace($this->attribute, array_fill($from, $to-$from+1, $state));
   }
-  
+
   /**
    * Search inside bitmap for ranges with the given state
    *
@@ -69,14 +69,14 @@ class BooleanArray implements MutableAttribute
     if ($offset) {
       $a = array_slice($a, $offset, NULL, true);
     }
-    
+
     $pos = array_search($state, $a, $strict);
-    
+
     if ($returnLength) {
       if (false === $pos) {
         return false;
       }
-      
+
       $a = array_slice($a, $pos - $offset);
       $length = array_search(!$state, $a, $strict);
       $length = $length ? $length : $this->length - $pos;
@@ -85,9 +85,9 @@ class BooleanArray implements MutableAttribute
       return $pos;
     }
   }
-  
+
   // MutableAttribute interface
-  
+
   /**
    * Insert a piece into the array at given offset with a given state and length
    *
@@ -99,7 +99,7 @@ class BooleanArray implements MutableAttribute
     $this->length += $length;
     array_splice($this->attribute, $offset, 0, array_fill(0, $length, $state));
   }
-  
+
   /**
    * Delete a piece of the array at given offset with a given length
    *
@@ -110,58 +110,58 @@ class BooleanArray implements MutableAttribute
     $this->length -= $length;
     array_splice($this->attribute, $offset, $length);
   }
-  
+
   // ArrayAccess interface
-  
+
   /**
    * Check if the given offset exists in the array
    *
    * @param int $offset offset
    * @return bool does the offset exist
    */
-  public function offsetExists($offset) {
+  public function offsetExists(mixed $offset): bool {
     return $offset < $this->length;
   }
-  
+
   /**
    * Get bool at given offset
    *
    * @param int $offset offset
    * @return bool bit at given offset
    */
-  public function offsetGet($offset)
+  public function offsetGet(mixed $offset): bool
 	{
 		return $this->attribute[$offset];
 	}
-  
+
   /**
    * Set bool at given offset
    *
    * @param int $offset offset
    * @param bool $value bit at given offset
    */
-  public function offsetSet($offset, $value)
+  public function offsetSet(mixed $offset, mixed $value): void
 	{
-    $this->attribute[$offset] = $value;
+    $this->attribute[$offset] = (bool) $value;
 	}
-  
+
   /**
    * Unset bit at given offset
    *
    * @param int $offset offset
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset(mixed $offset): void {
     unset($this->attribute[$offset]);
   }
-  
+
   // Countable interface
-  
+
   /**
    * Return array length
    *
    * @return int array length
    */
-  public function count() {
+  public function count(): int {
     return $this->length;
   }
 }
