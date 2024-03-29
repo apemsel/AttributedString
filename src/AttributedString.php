@@ -20,7 +20,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string|AttributedString $string Either a simple string or another AttributedString to init the AttributedString
    * @param string $attributeClass Class to use for attributes
    */
-  public function __construct($string, $attributeClass = "apemsel\AttributedString\BooleanArray") {
+  public function __construct(string $string, string $attributeClass = "apemsel\AttributedString\BooleanArray") {
     if (is_string($string)) {
       $this->string = $string;
       $this->length = mb_strlen($string, "utf-8");
@@ -43,7 +43,7 @@ class AttributedString implements \Countable, \ArrayAccess
    *
    * @return string The native string representation of the AttributedString without attributes
    */
-  public function __toString() {
+  public function __toString(): string {
     return $this->string;
   }
 
@@ -53,7 +53,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $attribute The name of the new attribute
    * @throws InvalidArgumentException if the attribute already exists
    */
-  public function createAttribute($attribute) {
+  public function createAttribute(string $attribute): void {
     if ($this->hasAttribute($attribute)) {
       throw new \InvalidArgumentException();
     }
@@ -67,7 +67,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $attribute The name of the attribute to check
    * @return bool
    */
-  public function hasAttribute($attribute) {
+  public function hasAttribute(string $attribute): bool {
     return isset($this->attributes[$attribute]);
   }
 
@@ -76,7 +76,7 @@ class AttributedString implements \Countable, \ArrayAccess
    *
    * @param string $attribute The name of the attribute to delete
    */
-  public function deleteAttribute($attribute) {
+  public function deleteAttribute(string $attribute): void {
     if (isset($this->attributes[$attribute])) {
       unset($this->attributes[$attribute]);
     }
@@ -90,7 +90,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $attribute name of the attribute to be set
    * @param bool $state set state to true (default) or false
    */
-  public function setRange($from, $to, $attribute, $state = true) {
+  public function setRange(int $from, int $to, string $attribute, bool $state = true): void {
     // Ensure correct range
     $from = min($from, $this->length);
     $from = max($from, 0);
@@ -119,8 +119,8 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $attribute name of the attribute to be set
    * @param bool $state set state to true (default) or false
    */
-  public function setLength($from, $length, $attribute, $state = true) {
-    return $this->setRange($from, $from + $length - 1, $attribute, $state);
+  public function setLength(int $from, int $length, string $attribute, bool $state = true): void {
+    $this->setRange($from, $from + $length - 1, $attribute, $state);
   }
 
   /**
@@ -131,7 +131,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param bool $state set state to true (default) or false
    * @return int number of matches
    */
-  public function setPattern($pattern, $attribute, $state = true) {
+  public function setPattern(string $pattern, string $attribute, bool $state = true): int {
     if ($ret = preg_match_all($pattern, $this->string, $matches, PREG_OFFSET_CAPTURE)) {
       foreach($matches[0] as $match)
       {
@@ -152,7 +152,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param bool $matchCase match or ignore case
    * @param bool $state set state to true (default) or false
    */
-  public function setSubstring($substring, $attribute, $all = true, $matchCase = true, $state = true) {
+  public function setSubstring(string $substring, string $attribute, bool $all = true, bool $matchCase = true, bool $state = true): void {
     $offset = 0;
     $length = mb_strlen($substring, "utf-8");
     $func = $matchCase ? "mb_strpos" : "mb_stripos";
@@ -176,7 +176,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param bool $strict perform strict comparison during search
    * @return int|int[] either position or position and lenght in an array
    */
-  public function searchAttribute($attribute, $offset = 0, $returnLength = false, $state = true, $strict = true) {
+  public function searchAttribute(string $attribute, int $offset = 0, bool $returnLength = false, bool $state = true, bool $strict = true): bool|int|array {
     if (!$this->hasAttribute($attribute)) {
       return false;
     }
@@ -191,7 +191,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param int $pos offset to check
    * @return bool true if string has the attribute at the given position
    */
-  public function is($attribute, $pos) {
+  public function is(string $attribute, int $pos): bool {
     return (isset($this->attributes[$attribute][$pos]) and $this->attributes[$attribute][$pos]);
   }
 
@@ -204,7 +204,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param bool $strict perform strict comparison during search
    * @return string[] array of strings with given attribute
    */
-  public function substrings($attribute, $offset = 0, $state = true, $strict = true)
+  public function substrings(string $attribute, int $offset = 0, bool $state = true, bool $strict = true): array
   {
     $substrings = [];
     while (false !== $pl = $this->searchAttribute($attribute, $offset, true, $state, $strict))
@@ -228,7 +228,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $glue glue that is inserted between the parts, default is nothing ("")
    * @return string combined filtered string
    */
-  public function filter($attribute, $offset = 0, $state = true, $strict = true, $glue = "")
+  public function filter(string $attribute, int $offset = 0, bool $state = true, bool $strict = true, string $glue = ""): string
   {
     return implode($glue, $this->substrings($attribute, $offset, $state, $strict));
   }
@@ -239,7 +239,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param int $pos offset
    * @return string[] attributes at the given offset
    */
-  public function attributesAt($pos) {
+  public function attributesAt(int $pos): array {
     $attributes = [];
 
     foreach ($this->attributes as $attribute => &$map) {
@@ -258,7 +258,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $classPrefix Optional prefix used to convert the attribute names to class names
    * @return string HTML
    */
-  public function toHtml($tag = "span", $classPrefix = "") {
+  public function toHtml(string $tag = "span", string $classPrefix = "") {
     foreach($this->attributes as $attribute => $map) $state[$attribute] = false;
 
     $html = "";
@@ -322,9 +322,9 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $to optional name of the attribute to copy the result to
    * @throws InvalidArgumentException if one of the attributes does not exist or an unkown operation is given
    */
-  public function combineAttributes($op, $attribute1, $attribute2 = false, $to = false)
+  public function combineAttributes(string $op, string $attribute1, string $attribute2 = "", string $to = ""): void
   {
-    $to = isset($to) ? $to : $attribute1;
+    $to = !empty($to) ? $to : $attribute1;
     $op = strtolower($op);
 
     if ($op == "not") {
@@ -377,7 +377,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $true char to use for true state of attribute
    * @param string $false char to use for false state of attribute
    */
-  public function attributeToString($attribute, $true = "-", $false = " ") {
+  public function attributeToString(string $attribute, string $true = "-", string $false = " "): string {
     return $this->attributes[$attribute]->toString($true, $false);
   }
 
@@ -387,7 +387,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param string $attribute name of the attribute
    * @return object an object implementing the attribute interface
    */
-  public function getAttribute($attribute) {
+  public function getAttribute(string $attribute): Attribute {
     return $this->attributes[$attribute];
   }
 
@@ -396,7 +396,7 @@ class AttributedString implements \Countable, \ArrayAccess
    *
    * May improve performance if setPattern is used extensively
    */
-  public function enableByteToCharCache() {
+  public function enableByteToCharCache(): void {
     $this->byteToChar = [];
     $char = 0;
     for ($i = 0; $i < strlen($this->string); ) {
@@ -409,20 +409,20 @@ class AttributedString implements \Countable, \ArrayAccess
     }
   }
 
-  protected function byteToCharOffset($boff) {
+  protected function byteToCharOffset(int $boff) {
     if (isset($this->byteToChar[$boff])) return $this->byteToChar[$boff];
 
     return $this->byteToChar[$boff] = self::byteToCharOffsetString($this->string, $boff);
   }
 
-  protected function charToByteOffset($char) {
+  protected function charToByteOffset(int $char) {
     $byte = strlen(mb_substr($this->string, 0, $char, "utf-8"));
     if (!isset($this->byteToChar[$byte])) $this->byteToChar[$byte] = $char;
 
     return $byte;
   }
 
-  protected static function byteToCharOffsetString($string, $boff) {
+  protected static function byteToCharOffsetString(string $string, int $boff) {
     $result = 0;
 
     for ($i = 0; $i < $boff; ) {
@@ -435,7 +435,7 @@ class AttributedString implements \Countable, \ArrayAccess
     return $result;
   }
 
-  protected static function utf8CharLen($byte) {
+  protected static function utf8CharLen(string $byte): int {
     $base2 = str_pad(base_convert((string) ord($byte), 10, 2), 8, "0", STR_PAD_LEFT);
     $p = strpos($base2, "0");
 
@@ -455,7 +455,7 @@ class AttributedString implements \Countable, \ArrayAccess
    *
    * @return int string length
    */
-  public function count() {
+  public function count(): int {
     return $this->length;
   }
 
@@ -467,8 +467,8 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param int $offset offset
    * @return bool does the offset exist
    */
-  public function offsetExists($offset) {
-    return $offest < $this->length;
+  public function offsetExists(mixed $offset): bool {
+    return $offset < $this->length;
   }
 
   /**
@@ -479,7 +479,7 @@ class AttributedString implements \Countable, \ArrayAccess
    * @param int $offset offset
    * @return string character
    */
-  public function offsetGet($offset) {
+  public function offsetGet(mixed $offset): string {
     return mb_substr($this->string, $offset, 1, "utf-8");
   }
 
@@ -488,7 +488,7 @@ class AttributedString implements \Countable, \ArrayAccess
    *
    * @throws RuntimeException always
    */
-  public function offsetSet($offset, $value) {
+  public function offsetSet(mixed $offset, mixed $value): void {
     throw new \RuntimeException("AttributedString is immutable");
   }
 
@@ -497,7 +497,7 @@ class AttributedString implements \Countable, \ArrayAccess
    *
    * @throws RuntimeException always
    */
-  public function offsetUnset($offset) {
+  public function offsetUnset(mixed $offset): void {
     throw new \RuntimeException("AttributedString is immutable");
   }
 }
